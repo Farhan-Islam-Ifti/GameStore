@@ -1,14 +1,74 @@
+/* Navbar.css */
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background-color: rgba(31, 41, 55, 0.9); /* Semi-transparent background */
+  background-color: rgba(31, 41, 55, 0.6); /* Semi-transparent background */
   color: white;
-  padding: 0.75rem 1.5rem; /* Adjust padding to reduce height */
+  padding: 1rem 1.5rem; /* Adjusted padding to reduce height */
   z-index: 1000; /* Ensure it is above other content */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: adds a subtle shadow */
-  height: 60px; /* Fixed height for consistency */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: adds a subtle shadow */
+  height: 30px; /* Reduced height for thinner navbar */
   display: flex;
   align-items: center;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  margin-right: 1rem;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+.navbar .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navbar .menu {
+  flex: 1; /* Take remaining space */
+  display: flex;
+  justify-content: flex-end;
+}
+
+.navbar .menu-item {
+  margin-left: 1rem;
+}
+
+.navbar .menu-item:last-child {
+  margin-right: 0;
+}
+
+.navbar .user-info {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .user-info .username {
+  margin-right: 1rem;
+}
+
+.navbar .logout-btn {
+  background-color: #ff5555;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.navbar .logout-btn:hover {
+  background-color: #ff0000;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.75rem 1rem; /* Adjust padding for smaller screens */
+    height: 40px; /* Adjust height for smaller screens */
+  }
 }
