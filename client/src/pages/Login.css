@@ -1,44 +1,34 @@
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100%;
-}
-
-.login-form {
-  background-color: white;
-  padding: 2rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
-}
-
-.login-form h2 {
-  margin-bottom: 1rem;
-}
-
-.login-form label {
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-.login-form input {
-  width: 100%;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 0.25rem;
-}
-
-.login-form button {
-  width: 100%;
-  padding: 0.75rem;
-  background-color: #007bff;
-  border: none;
-  border-radius: 0.25rem;
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
-}
+.background-image {
+    background: url('../assets/bg.jpg') no-repeat center center fixed;
+    background-size: cover; /* Ensures the background covers the entire viewport */
+    position: relative;
+    width: 100vw; /* Full viewport width */
+    height: 100vh;
+    overflow: hidden; /* Full viewport height */
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 500px; /* Set a maximum width for the container */
+    padding: 2rem; /* Add padding */
+    background: rgba(31, 41, 55, 0.8); /* Semi-transparent background */
+    border-radius: 8px; /* Optional: rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+    z-index: 100; /* Ensure it's above the background image */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  input {
+    width: 100%;
+    max-width: 400px; /* Set a max-width for the input fields */
+  }
+  
+  label {
+    position: absolute;
+    top: 0.75rem; /* Adjust label position */
+    left: 0.75rem; /* Adjust label position */
+    transition: 0.2s ease; /* Smooth transition for label */
+  }
+  

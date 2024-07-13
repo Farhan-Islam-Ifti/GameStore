@@ -1,16 +1,14 @@
 import { Link } from "react-router-dom";
-import './Navbar.css'; // Ensure you have the appropriate CSS file
+import './Navbar.css'; // Import the CSS file
 
 export default function Navbar() {
   return (
     <nav className="navbar">
-      <div className="navbar-brand">
-        <Link to="/" className="navbar-logo">MyApp</Link>
-      </div>
-      <div className="navbar-links">
-        <Link to="/" className="nav-link">Home</Link>
-        <Link to="/register" className="nav-link">Register</Link>
-        <Link to="/login" className="nav-link">Login</Link>
+      <Link to="/" className="text-2xl font-bold">MyApp</Link>
+      <div className="space-x-4 ml-auto">
+        <Link to="/" className="hover:text-blue-400">Home</Link>
+        <Link to="/register" className="hover:text-blue-400">Register</Link>
+        <Link to="/login" className="hover:text-blue-400">Login</Link>
       </div>
     </nav>
   );
