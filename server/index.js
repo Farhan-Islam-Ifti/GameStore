@@ -18,7 +18,7 @@ mongoose.connect(process.env.MONGO_URL, {
 // Middleware
 app.use(cors({
   credentials: true,
-  origin: 'http://localhost:5173' // Update with your client URL
+  origin: 'https://game-store-client.vercel.app' // Update with your client URL
 }));
 app.use(express.json());
 app.use(cookieParser());
