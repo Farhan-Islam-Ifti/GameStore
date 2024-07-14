@@ -7,7 +7,7 @@ const {test , registerUser, loginUser}= require('../controllers/authController')
 router.use(
     cors({
         credentials: true,
-        origin: 'http://localhost:5173'
+        origin: 'https://game-store-client.vercel.app'
     })
 )
 
