@@ -20,7 +20,7 @@ router.use(
 
 router.get('/', test);
 router.post('/register', registerUser);
-router.post('/login', loginUser);
+router.post('https://game-store-server-seven.vercel.app/login', loginUser);
 router.get('/profile', getProfile);
 router.post('/refresh-token', refreshToken);
 router.post('/logout', logout);
