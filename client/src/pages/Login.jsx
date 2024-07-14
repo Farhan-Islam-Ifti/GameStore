@@ -24,7 +24,7 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const response = await axios.post('/login', { email, password });
+      const response = await axios.post('https://game-store-server-seven.vercel.app/login', { email, password });
 
       if (response.data.error) {
         toast.error(response.data.error);
