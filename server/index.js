@@ -1,34 +1,22 @@
 const express = require('express');
-const dotenv = require('dotenv');
+const dotenv = require('dotenv').config();
 const cors = require('cors');
-const mongoose = require('mongoose');
-const cookieParser = require('cookie-parser');
+const {mongoose} = require('mongoose');
 const app = express();
 
-dotenv.config();
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-  .then(() => console.log('Database connected!!!'))
-  .catch((err) => console.error('Database connection error:', err));
+mongoose.connect(process.env.MONGO_URL)
+.then(() => console.log('Database connected!!!'))
+.catch((err) => console.log('Database is not connected', err));
 
-// Middleware
-app.use(cors({
-  credentials: true,
-  origin: 'https://game-store-client.vercel.app' // Update with your client URL
-}));
+//middleware
 app.use(express.json());
-app.use(cookieParser());
-app.use(express.urlencoded({ extended: false }));
 
-// Routes
-app.use('/', require('./routes/authRoutes'));
 
-// Start server
-const port = process.env.PORT || 8000;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+
+//app.use(express.json());
+app.use('/', require('./routes/authRoutes'))
+
+
+const port = 8000;
+app.listen(port, () => console.log(`Server is running on port ${port}`));

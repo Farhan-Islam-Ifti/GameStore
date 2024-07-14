@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
-import './Login.css';
+import { useNavigate } from "react-router-dom";
+import './Login.css'; // Import the CSS file
 
 export default function Login() {
   const navigate = useNavigate();
@@ -15,24 +15,19 @@ export default function Login() {
   const loginUser = async (e) => {
     e.preventDefault();
     const { email, password } = data;
-
-    if (!email || !password) {
-      toast.error('Email and password are required');
-      return;
-    }
-
-    setLoading(true);
-
+    setLoading(true); // Start loading
     try {
-      const response = await axios.post('https://game-store-server-seven.vercel.app/login', { email, password });
-
+      const response = await axios.post('/login', {
+        email,
+        password
+      });
+      
       if (response.data.error) {
         toast.error(response.data.error);
       } else {
-        setData({ email: '', password: '' });
-        localStorage.setItem('token', response.data.accessToken);
+        setData({});
         toast.success('Login Successful. Welcome!');
-        navigate('/dashboard');
+        navigate('/');
       }
     } catch (error) {
       if (error.response && error.response.data && error.response.data.error) {
@@ -41,7 +36,7 @@ export default function Login() {
         toast.error('An error occurred. Please try again later.');
       }
     } finally {
-      setLoading(false);
+      setLoading(false); // Stop loading
     }
   };
 
@@ -72,8 +67,7 @@ export default function Login() {
             />
             <label htmlFor="password" className="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-0 left-0 peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
           </div>
-          <button
-            type="submit"
+          <button type='submit' 
             disabled={loading}
             className="w-full mb-4 text-[18px] mt-6 rounded-full bg-white text-emerald-800 hover:bg-emerald-600 hover:text-white py-2 transition-colors duration-300"
           >
