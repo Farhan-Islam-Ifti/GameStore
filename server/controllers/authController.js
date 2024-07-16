@@ -132,11 +132,10 @@ const refresh = (req, res) => {
     if (!cookies?.jwt) return res.status(401).json({ message: 'Unauthorized' })
 
     const refreshToken = cookies.jwt
-    
+
     jwt.verify(
         refreshToken,
         process.env.REFRESH_TOKEN_SECRET,
-       // console.log(refreshToken),
         asyncHandler(async (err) => {
             if (err) return res.status(403).json({ message: 'Forbidden' })
 
