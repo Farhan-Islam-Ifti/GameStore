@@ -1,5 +1,7 @@
-const User = require('../models/user');
+const User = require('../model/user');
 const { hashPassword, comparePassword } = require('../helpers/auth');
+const jwt = require('jsonwebtoken')
+const asyncHandler = require('express-async-handler')
 
 const test = (req, res) => {
     res.json('test is working');
@@ -24,7 +26,7 @@ const registerUser = async (req, res) => {
         }
 
         // Check if email already exists
-        const exist = await User.findOne({ email });
+        const exist = await User.findOne({ email }).sort({created: -1});
         if (exist) {
             return res.status(400).json({
                 error: 'Email is already taken'
@@ -70,28 +72,96 @@ const loginUser = async (req, res) => {
 
         // Compare passwords
         const match = await comparePassword(password, user.password);
+        const foundUser = await User.findOne({user}).exec()
+        if(!match)  return res.status(700).json({
+            error: 'Wrong password'
+        });
         if (match) {
-            return res.status(200).json({
+            const accessToken = jwt.sign(
+                {
+                    "UserInfo": {
+                        "email": user.email,
+                    }
+                },
+                process.env.ACCESS_TOKEN_SECRET,
+                { expiresIn: '15m' }
+            )
+        
+            const refreshToken = jwt.sign(
+                { "email": user.email },
+                process.env.REFRESH_TOKEN_SECRET,
+                { expiresIn: '7d' }
+            )
+        
+            // Create secure cookie with refresh token 
+            res.cookie('jwt', refreshToken, {
+                httpOnly: true, //accessible only by web server 
+                secure: true, //https
+                sameSite: 'None', //cross-site cookie 
+                maxAge: 7 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
+            })
+        
+            // Send accessToken containing username and roles 
+            res.json({ accessToken })
+            
+        /*    return res.status(200).json({
                 message: 'Login successful',
                 user: {
                     id: user._id,
                     name: user.name,
                     email: user.email,
                 }
-            });
-        } else {
-            return res.status(700).json({
-                error: 'Wrong password'
-            });
-        }
+            });*/
+            
+        } 
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: 'Internal server error' });
     }
 };
+const refresh = (req, res) => {
+    const cookies = req.cookies
+
+    if (!cookies?.jwt) return res.status(401).json({ message: 'Unauthorized' })
+
+    const refreshToken = cookies.jwt
+
+    jwt.verify(
+        refreshToken,
+        process.env.REFRESH_TOKEN_SECRET,
+        asyncHandler(async (err) => {
+            if (err) return res.status(403).json({ message: 'Forbidden' })
+
+            const foundUser = await User.findOne({ email }).exec()
+
+            if (!foundUser) return res.status(401).json({ message: 'Unauthorized' })
+
+            const accessToken = jwt.sign(
+                {
+                    "UserInfo": {
+                        "email": foundUser.email,
+                       // "roles": foundUser.roles
+                    }
+                },
+                process.env.ACCESS_TOKEN_SECRET,
+                { expiresIn: '15m' }
+            )
+
+            res.json({ accessToken })
+        })
+    )
+}
+const logout = (req, res) => {
+    const cookies = req.cookies
+    if (!cookies?.jwt) return res.sendStatus(204) //No content
+    res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true })
+    res.json({ message: 'Cookie cleared' })
+}
 
 module.exports = {
     test,
     registerUser,
-    loginUser
+    loginUser,
+    refresh,
+    logout,
 };
