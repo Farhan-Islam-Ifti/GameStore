@@ -23,7 +23,7 @@ app.use(cors({
     credentials: true, // Allow cookies to be sent
 }));
 
-app.use('/', express.static(path.join(__dirname, 'public')))
+//app.use('/', express.static(path.join(__dirname, 'public')))
 //app.use(express.json());
 app.use('/', require('./routes/authRoutes'))
 /*app.all('*', (req, res) => {
