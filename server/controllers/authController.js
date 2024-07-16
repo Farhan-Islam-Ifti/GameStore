@@ -72,7 +72,7 @@ const loginUser = async (req, res) => {
 
         // Compare passwords
         const match = await comparePassword(password, user.password);
-        const foundUser = await User.findOne({user}).exec()
+      //  const foundUser = await User.findOne({user}).exec()
         if(!match)  return res.status(700).json({
             error: 'Wrong password'
         });
