@@ -1,0 +1,50 @@
+.sideMenu {
+    width: 20%; /* Set width to 20% of the viewport */
+    height: calc(100% - 100px); /* Set height to 100% of the viewport height */
+    padding: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    background: var(--bgColor);
+    box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.15),
+                5px 5px 15px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    transition: 1s;
+    position: fixed; /* Ensure it stays fixed on the left */
+    top: 80px;
+    overflow-y: auto;
+}
+
+.sideMenu .nav {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    gap: 15px;
+    padding: 0;
+}
+
+.sideMenu .nav li a {
+    text-decoration: none;
+    color: var(--second);
+    font-size: 1em;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.5s;
+    background: var(--bgColor);
+    border-radius: 20px;
+    padding: 10px;
+    width: 100%;
+    transition: 0.5s;
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide overflowed content */
+    text-overflow: ellipsis;
+}
+
+.sideMenu .nav li a:hover,
+.sideMenu .nav li a.active {
+    box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.15),
+                5px 5px 15px rgba(0, 0, 0, 0.35);
+}
