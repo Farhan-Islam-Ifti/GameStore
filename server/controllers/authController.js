@@ -72,11 +72,9 @@ const loginUser = async (req, res) => {
 
         // Compare passwords
         const match = await comparePassword(password, user.password);
-<<<<<<< HEAD
+
      //   const foundUser = await User.findOne({user}).exec()
-=======
       //  const foundUser = await User.findOne({user}).exec()
->>>>>>> 58f441f5bcac6e406db590b3ecd93c93318e027c
         if(!match)  return res.status(700).json({
             error: 'Wrong password'
         });
@@ -106,27 +104,20 @@ const loginUser = async (req, res) => {
             })
         
             // Send accessToken containing username and roles 
-<<<<<<< HEAD
           res.json({ accessToken })
-            
-          return res.status(200).json(
-            {
-=======
-           res.json({ accessToken })
+        
             
             return res.status(200).json({
->>>>>>> 58f441f5bcac6e406db590b3ecd93c93318e027c
+
                 message: 'Login successful',
                 user: {
                     id: user._id,
                     name: user.name,
                     email: user.email,
-<<<<<<< HEAD
+
                 }
-=======
-                },
+               // },
               //  accessToken
->>>>>>> 58f441f5bcac6e406db590b3ecd93c93318e027c
             });
             
         } 
