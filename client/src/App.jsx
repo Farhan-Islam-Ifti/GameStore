@@ -8,7 +8,7 @@ import Login from './pages/Login';
 import axios from 'axios';
 import { Toaster } from 'react-hot-toast';
 
-axios.defaults.baseURL = 'http://localhost:8000';
+axios.defaults.baseURL = 'https://game-store-server-jet.vercel.app';
 axios.defaults.withCredentials = true;
 
 function App() {
