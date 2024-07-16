@@ -104,7 +104,7 @@ const loginUser = async (req, res) => {
             })
         
             // Send accessToken containing username and roles 
-          res.json({ accessToken },{refreshToken})
+          res.json({ accessToken })
         
             
             return res.status(200).json({
