@@ -13,7 +13,7 @@ mongoose.connect(process.env.MONGO_URL)
 
 app.use(logger)
 //app.use(cors(corsOptions))
-
+//app.use(cors());
 //middleware
 app.use(express.json());
 
