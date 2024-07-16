@@ -102,7 +102,7 @@ const loginUser = async (req, res) => {
             })
         
             // Send accessToken containing username and roles 
-         //   res.json({ accessToken })
+           res.json({ accessToken })
             
             return res.status(200).json({
                 message: 'Login successful',
@@ -111,7 +111,7 @@ const loginUser = async (req, res) => {
                     name: user.name,
                     email: user.email,
                 },
-                accessToken
+              //  accessToken
             });
             
         } 
