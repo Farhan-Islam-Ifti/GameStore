@@ -104,14 +104,14 @@ const loginUser = async (req, res) => {
             // Send accessToken containing username and roles 
             res.json({ accessToken })
             
-        /*    return res.status(200).json({
+            return res.status(200).json({
                 message: 'Login successful',
                 user: {
                     id: user._id,
                     name: user.name,
                     email: user.email,
                 }
-            });*/
+            });
             
         } 
     } catch (error) {
