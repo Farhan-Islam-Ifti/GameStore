@@ -26,7 +26,7 @@ const registerUser = async (req, res) => {
         }
 
         // Check if email already exists
-        const exist = await User.findOne({ email }).sort({created: -1});
+        const exist = await User.findOne({ email });
         if (exist) {
             return res.status(400).json({
                 error: 'Email is already taken'
