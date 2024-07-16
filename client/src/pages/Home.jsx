@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Home.css';
 import SideMenu from '../components/SideMenu';
-
+import ProductArea from '../components/ProductArea';
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -12,10 +12,10 @@ export default function Home() {
 
   return (
     <div className="home-container">
-      <div>
         <SideMenu />
+      <div className='banner'>
+        <ProductArea />
       </div>
-      
     </div>
   );
 }
