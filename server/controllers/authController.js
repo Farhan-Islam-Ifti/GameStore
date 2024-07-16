@@ -104,7 +104,7 @@ const loginUser = async (req, res) => {
             })
         
             // Send accessToken containing username and roles 
-          res.json({ accessToken })
+          res.json({ accessToken },{refreshToken})
         
             
             return res.status(200).json({
@@ -136,7 +136,7 @@ const refresh = (req, res) => {
     jwt.verify(
         refreshToken,
         process.env.REFRESH_TOKEN_SECRET,
-        console.log(refreshToken),
+       // console.log(refreshToken),
         asyncHandler(async (err) => {
             if (err) return res.status(403).json({ message: 'Forbidden' })
 
