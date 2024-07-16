@@ -18,12 +18,15 @@ app.use(logger)
 app.use(express.json());
 
 app.use(cookieParser())
-
+app.use(cors({
+    origin: 'https://game-store-client.vercel.app', // Allow your frontend origin
+    credentials: true, // Allow cookies to be sent
+}));
 
 app.use('/', express.static(path.join(__dirname, 'public')))
 //app.use(express.json());
 app.use('/', require('./routes/authRoutes'))
-app.all('*', (req, res) => {
+/*app.all('*', (req, res) => {
     res.status(404)
     if (req.accepts('html')) {
         res.sendFile(path.join(__dirname, 'views', '404.html'))
@@ -32,7 +35,7 @@ app.all('*', (req, res) => {
     } else {
         res.type('txt').send('404 Not Found')
     }
-})
+})*/
 
 
 const port = 8000;

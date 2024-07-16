@@ -72,7 +72,7 @@ const loginUser = async (req, res) => {
 
         // Compare passwords
         const match = await comparePassword(password, user.password);
-        const foundUser = await User.findOne({user}).exec()
+     //   const foundUser = await User.findOne({user}).exec()
         if(!match)  return res.status(700).json({
             error: 'Wrong password'
         });
@@ -88,7 +88,7 @@ const loginUser = async (req, res) => {
             )
         
             const refreshToken = jwt.sign(
-                { "email": user.email },
+                 { "email": user.email },
                 process.env.REFRESH_TOKEN_SECRET,
                 { expiresIn: '7d' }
             )
@@ -102,16 +102,17 @@ const loginUser = async (req, res) => {
             })
         
             // Send accessToken containing username and roles 
-            res.json({ accessToken })
+          res.json({ accessToken })
             
-        /*    return res.status(200).json({
+          return res.status(200).json(
+            {
                 message: 'Login successful',
                 user: {
                     id: user._id,
                     name: user.name,
                     email: user.email,
                 }
-            });*/
+            });
             
         } 
     } catch (error) {
