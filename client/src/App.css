@@ -3,6 +3,9 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  --bgColor: #192938;
+  --primary: #0d171f;
+  --second: #0998a8;
 }
 
 .logo {
