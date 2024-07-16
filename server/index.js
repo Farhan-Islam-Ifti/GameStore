@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const { logger,logEvents } = require('./middlewares/logger')
 const path = require('path')
-
 mongoose.connect(process.env.MONGO_URL)
 .then(() => console.log('Database connected!!!'))
 .catch((err) => console.log('Database is not connected', err));
@@ -15,7 +14,7 @@ app.use(logger)
 //app.use(cors(corsOptions))
 //app.use(cors());
 //middleware
-app.use(express.json());
+
 
 app.use(cookieParser())
 app.use(cors({
