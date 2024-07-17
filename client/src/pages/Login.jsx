@@ -17,7 +17,7 @@ export default function Login() {
     const { email, password } = data;
     setLoading(true); // Start loading
     try {
-      const response = await axios.post('/login', {
+      const response = await axios.post('https://game-store-server-jet.vercel.app/login', {
         email,
         password
       });
