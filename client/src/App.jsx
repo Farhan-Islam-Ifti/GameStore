@@ -7,12 +7,13 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import axios from 'axios';
 import { Toaster } from 'react-hot-toast';
+const authController = require('../controllers/authController');
 
 axios.defaults.baseURL = 'https://game-store-server-jet.vercel.app';
 axios.defaults.withCredentials = true;
 
 function App() {
-  const isUserSignedIn = !!localStorage.getItem('token');
+  const isUserSignedIn = !!localStorage.getItem('accessToken');
 
   return (
     <div>
