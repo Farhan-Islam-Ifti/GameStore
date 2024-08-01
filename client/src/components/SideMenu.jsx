@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import { HiExclamationCircle } from "react-icons/hi";
 import { HiFolder } from "react-icons/hi";
 import { HiHeart } from "react-icons/hi";
@@ -33,4 +33,4 @@ export default function SideMenu () {
             </ul>
         </div>
     );
-}
+}*/
