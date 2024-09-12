@@ -5,7 +5,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 30px;
+  padding: 10px;
   border: 8px solid var(--bgColor);
   background: var(--bgColor);
   box-shadow:-5px -5px 15px rgba(255, 255, 255, 0.15),
@@ -13,10 +13,27 @@
     inset  -5px -5px rgba(255, 255, 255, 0.15),
     inset  5px 5px 15px rgba(0, 0, 0, 0.35);
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   gap: 30px;
   overflow: hidden;
   transition: 0.5s;
-  }
+}
+
+/* Modify the banner class to handle the product display area */
+.banner {
+  flex-grow: 1; /* This will allow the banner (ProductArea) to grow and fill the remaining space */
+  height: 100%; /* Ensure height matches the viewport minus some top padding */
+  padding: 10px; /* Padding around the content */
+  margin-left: 22%; /* Space between the banner and the sidebar */
+  background: var(--bgColor); /* Background consistent with the rest of the theme */
+  border-radius: 30px;
+  box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
+              5px 5px 15px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column; /* So that content stacks vertically */
+  overflow-y: auto; /* Allow scrolling if content is large */
+  transition: 1s ease-in-out; /* Smooth transitions for any dynamic content */
+}
+
   

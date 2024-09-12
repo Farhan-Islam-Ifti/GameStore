@@ -103,3 +103,5 @@
 20240912	19:45:00	5b904d2d-1a00-4034-9562-7f0a50e56593	POST	/register	http://localhost:5173
 20240912	19:45:12	919dc02d-3900-475c-96d2-16267626456c	OPTIONS	/login	http://localhost:5173
 20240912	19:45:12	ab150a6c-3ba9-4d06-9fda-8c280ecfaa86	POST	/login	http://localhost:5173
+20240912	20:17:25	7183c34d-c4c3-4d04-89d8-34892ea3a611	OPTIONS	/login	http://localhost:5173
+20240912	20:17:25	08fdbee5-869a-4bc1-9b35-9d886c40af77	POST	/login	http://localhost:5173

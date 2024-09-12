@@ -1,46 +1,30 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './Home.css';
+import SideMenu from '../components/SideMenu';
+import CategoryPage from '../components/CategoryPage';
+import LibraryPage from '../components/LibraryPage';
+import FavouritePage from '../components/FavouritePage';
+import AboutUsPage from '../components/AboutUsPage';
+import ProductArea from '../components/ProductArea';
 
 export default function Home() {
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    console.log('Search query:', searchQuery);
-  };
-
   return (
-    <div className="home-container">
-      <div className="search-section">
-        <form onSubmit={handleSearch} className="search-form">
-          <input 
-            type="text" 
-            placeholder="Search..." 
-            value={searchQuery} 
-            onChange={(e) => setSearchQuery(e.target.value)} 
-            className="search-input"
-          />
-          <button type="submit" className="search-button">Search</button>
-        </form>
-      </div>
+      <div className="home-container">
+        {/* SideMenu stays constant */}
+        <SideMenu />
 
-      <div className="content-section">
-        <h2>Featured Items</h2>
-        <div className="slider">
-          <div className="slider-item">Item 1</div>
-          <div className="slider-item">Item 2</div>
-          <div className="slider-item">Item 3</div>
+        {/* Banner where the content will change based on the route */}
+        <div className='banner'>
+          <Routes>
+            {/* Define different routes for each page */}
+            <Route path="/" element={<ProductArea />} />
+            <Route path="/category" element={<CategoryPage />} />
+            <Route path="/library" element={<LibraryPage />} />
+            <Route path="/favourite" element={<FavouritePage />} />
+            <Route path="/aboutus" element={<AboutUsPage />} />
+          </Routes>
         </div>
       </div>
-
-      <div className="content-section">
-        <h2>Popular Items</h2>
-        <div className="slider">
-          <div className="slider-item">Item 4</div>
-          <div className="slider-item">Item 5</div>
-          <div className="slider-item">Item 6</div>
-        </div>
-      </div>
-    </div>
   );
 }

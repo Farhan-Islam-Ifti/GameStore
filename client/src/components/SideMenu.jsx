@@ -1,37 +1,36 @@
-/*import React from 'react';
+import React from 'react';
 import { HiExclamationCircle } from "react-icons/hi";
 import { HiFolder } from "react-icons/hi";
 import { HiHeart } from "react-icons/hi";
 import { HiOutlineCollection } from "react-icons/hi";
+import { Link } from 'react-router-dom';
+import './sideMenu.css';
 
-import './sideMenu.css'; // Ensure you import the CSS file
-
-export default function SideMenu () {
-    return (
-        <div className='sideMenu'>
-            <ul className="nav">
-                <li>
-                    <a href="#">
-                        <i><HiFolder /></i><span className='navName'>Catagory</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i><HiOutlineCollection /></i><span className='navName'>Library</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i><HiHeart /></i><span className='navName'>Favourite</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i><HiExclamationCircle /></i><span className='navName'>About Us</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    );
+export default function SideMenu() {
+  return (
+    <div className='sideMenu'>
+      <ul className="nav">
+        <li>
+          <Link to="/category">
+            <i><HiFolder /></i><span className='navName'>Category</span>
+          </Link>
+        </li>
+        <li>
+          <Link to="/library">
+            <i><HiOutlineCollection /></i><span className='navName'>Library</span>
+          </Link>
+        </li>
+        <li>
+          <Link to="/favourite">
+            <i><HiHeart /></i><span className='navName'>Favourite</span>
+          </Link>
+        </li>
+        <li>
+          <Link to="/aboutus">
+            <i><HiExclamationCircle /></i><span className='navName'>About Us</span>
+          </Link>
+        </li>
+      </ul>
+    </div>
+  );
 }
-*/

@@ -1,0 +1,49 @@
+.productArea h1 {
+    color: var(--primary); /* Adjust colors to match the overall design */
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.productArea .product {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    background: var(--bgColorLight); /* A lighter background for the products */
+    box-shadow: -3px -3px 10px rgba(255, 255, 255, 0.1),
+                3px 3px 10px rgba(0, 0, 0, 0.2);
+    transition: 0.3s ease;
+}
+
+.productArea .product:hover {
+    box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.15),
+                5px 5px 15px rgba(0, 0, 0, 0.35);
+}
+
+.productArea .product img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.productArea .product-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.productArea .product-info h2 {
+    font-size: 1.5em;
+    color: var(--textColor);
+}
+
+.productArea .product-info p {
+    color: var(--textSecondary);
+    margin-top: 10px;
+}
+

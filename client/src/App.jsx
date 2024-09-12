@@ -19,7 +19,7 @@ function App() {
       <Navbar />
       <Toaster position='bottom-right' toastOptions={{ duration: 2000 }} />
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='*' element={<Home />} />
         <Route path='/register' element={<div className="background-image"><Register /></div>} />
         <Route path='/login' element={<div className="background-image"><Login /></div>} />
         {isUserSignedIn && <Route path='/account' element={<Account />} />}
