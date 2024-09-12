@@ -18,7 +18,7 @@ app.use(logger)
 
 app.use(cookieParser())
 app.use(cors({
-    origin: 'https://game-store-client.vercel.app', // Allow your frontend origin
+    origin: 'http://localhost:5173', // Allow your frontend origin
     credentials: true, // Allow cookies to be sent
 }));
 
