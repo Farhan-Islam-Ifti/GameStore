@@ -30,6 +30,11 @@ export default function SideMenu() {
             <i><HiExclamationCircle /></i><span className='navName'>About Us</span>
           </Link>
         </li>
+        <li>
+          <Link to="/admin/add-game">
+            <i><HiExclamationCircle /></i><span className='navName'>Add</span>
+          </Link>
+        </li>
       </ul>
     </div>
   );

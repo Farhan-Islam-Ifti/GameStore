@@ -1,26 +1,43 @@
-import React from 'react';
-import './productArea.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './ProductArea.css';
 
-export default function ProductArea() {
+const ProductArea = () => {
+  const [games, setGames] = useState([]);
+
+  useEffect(() => {
+    const fetchGames = async () => {
+      try {
+        const response = await axios.get('https://game-store-server-jet.vercel.app/api/v1/games');
+        setGames(response.data);
+      } catch (error) {
+        console.error('Error fetching games:', error);
+      }
+    };
+
+    fetchGames();
+  }, []);
+
   return (
-    <div className="productArea">
-      <h1>Products</h1>
-      <div className="product">
-        <img src="product1.jpg" alt="Product 1" />
-        <div className="product-info">
-          <h2>Product 1</h2>
-          <p>Short description of product 1.</p>
-        </div>
+    <div className="product-area">
+      <h2>Featured Games</h2>
+      <div className="game-grid">
+        {games.map((game) => (
+          <div key={game._id} className="game-card">
+            <img src={game.imageUrl} alt={game.title} />
+            <h3>{game.title}</h3>
+            <p className="genre">{game.genre}</p>
+            <p className="platform">{game.platform.join(', ')}</p>
+            <p className="price">${game.price.toFixed(2)}</p>
+            {game.discountPercentage > 0 && (
+              <p className="discount">{game.discountPercentage}% OFF</p>
+            )}
+            <button>Add to Cart</button>
+          </div>
+        ))}
       </div>
-      <div className="product">
-        <img src="product2.jpg" alt="Product 2" />
-        <div className="product-info">
-          <h2>Product 2</h2>
-          <p>Short description of product 2.</p>
-        </div>
-      </div>
-      {/* More product items can go here */}
     </div>
   );
-}
+};
 
+export default ProductArea;

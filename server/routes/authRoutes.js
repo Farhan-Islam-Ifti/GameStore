@@ -18,7 +18,7 @@ router.use(
 router.get('/', test)
 router.post('/register', registerUser)
 router.post( '/login',loginUser,loginLimiter)
-router.use(verifyJWT)
+//router.use(verifyJWT)
 router.route('/refresh')
     .get(authController.refresh)
 

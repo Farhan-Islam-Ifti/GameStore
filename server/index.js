@@ -1,11 +1,16 @@
+
 const express = require('express');
 const dotenv = require('dotenv').config();
 const cors = require('cors');
 const {mongoose} = require('mongoose');
 const cookieParser = require('cookie-parser');
 const app = express();
+
 const { logger,logEvents } = require('./middlewares/logger')
 const path = require('path')
+const categoryRoutes = require('./routes/categoryRoutes');
+const gameRoutes = require('./routes/gameRoutes');
+const verifyJWT = require('./middlewares/verifyJWT');
 mongoose.connect(process.env.MONGO_URL)
 .then(() => console.log('Database connected!!!'))
 .catch((err) => console.log('Database is not connected', err));
@@ -35,6 +40,10 @@ app.use('/', require('./routes/authRoutes'))
         res.type('txt').send('404 Not Found')
     }
 })*/
+app.use('/verifyJWT', verifyJWT)
+app.use('/category',categoryRoutes);
+app.use('/api/v1', gameRoutes);
+
 
 
 const port = 8000;

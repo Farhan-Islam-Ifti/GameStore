@@ -7,6 +7,7 @@ import LibraryPage from '../components/LibraryPage';
 import FavouritePage from '../components/FavouritePage';
 import AboutUsPage from '../components/AboutUsPage';
 import ProductArea from '../components/ProductArea';
+import AdminAddGame from '../components/AdminAddGame';
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
             <Route path="/library" element={<LibraryPage />} />
             <Route path="/favourite" element={<FavouritePage />} />
             <Route path="/aboutus" element={<AboutUsPage />} />
+            <Route path="/admin/add-game" element={<AdminAddGame />} />
           </Routes>
         </div>
       </div>
