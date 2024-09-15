@@ -44,6 +44,7 @@ app.use('/verifyJWT', verifyJWT)
 app.use('/category',categoryRoutes);
 app.use('/api/v1', gameRoutes);
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 const port = 8000;

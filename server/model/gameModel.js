@@ -15,9 +15,13 @@ const gameSchema = new mongoose.Schema({
         required: true,
         min: 0
     },
+    imageFileName: {
+        type: String,
+        required: function() { return !this.imageUrl; }
+    },
     imageUrl: {
         type: String,
-        required: true
+        required: function() { return !this.imageFileName; }
     },
     genre: {
         type: String,
@@ -43,14 +47,15 @@ const gameSchema = new mongoose.Schema({
         type: Number,
         min: 0,
         max: 5,
-        default: 0
+        required: true
     },
     inStock: {
         type: Boolean,
         default: true
     },
     tags: {
-        type: [String]
+        type: [String],
+        default: []
     },
     discountPercentage: {
         type: Number,
