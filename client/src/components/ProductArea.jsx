@@ -8,7 +8,7 @@ const ProductArea = () => {
   useEffect(() => {
     const fetchGames = async () => {
       try {
-        const response = await axios.get('https://game-store-server-jet.vercel.app//api/v1/games');
+        const response = await axios.get('https://game-store-server-jet.vercel.app/api/v1/games');
         setGames(response.data);
       } catch (error) {
         console.error('Error fetching games:', error);
