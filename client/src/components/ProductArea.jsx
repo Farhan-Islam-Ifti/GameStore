@@ -29,7 +29,7 @@ const ProductArea = () => {
                 game.imageUrl
                   ? game.imageUrl
                   : game.imageFileName
-                  ? `https://game-store-server-jet.vercel.app/uploads/${game.imageFileName}` // Path to the uploaded image
+                  ? `https://github.com/Farhan-Islam-Ifti/GameStore/tree/main/server/uploads/${game.imageFileName}` // Path to the uploaded image
                   : 'default-image.jpg' // Fallback image if no URL or filename is available
               }
               alt={game.title}
