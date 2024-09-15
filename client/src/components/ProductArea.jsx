@@ -29,8 +29,8 @@ const ProductArea = () => {
                 game.imageUrl
                   ? game.imageUrl
                   : game.imageFileName
-                   `http://localhost:8000/uploads/${game.imageFileName}` // Path to the uploaded image
-                   // Fallback image if no URL or filename is available
+                  ? `http://localhost:8000/uploads/${game.imageFileName}` // Path to the uploaded image
+                  : 'default-image.jpg' // Fallback image if no URL or filename is available
               }
               alt={game.title}
               onError={(e) => (e.target.src = 'default-image.jpg')} // Fallback image on error
