@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Minus, Trash2 } from 'lucide-react';
 import './CartPage.css';
 
 const CartPage = () => {
@@ -85,15 +84,15 @@ const CartPage = () => {
                   </div>
                   <div className="quantity-controls">
                     <button onClick={() => updateQuantity(item.id, -1)} className="quantity-btn">
-                      <Minus size={24} />
+                      <span className="icon">−</span> {/* Minus icon */}
                     </button>
                     <span className="quantity">{item.quantity}</span>
                     <button onClick={() => updateQuantity(item.id, 1)} className="quantity-btn">
-                      <Plus size={24} />
+                      <span className="icon">+</span> {/* Plus icon */}
                     </button>
                   </div>
                   <button onClick={() => removeItem(item.id)} className="remove-btn">
-                    <Trash2 size={24} />
+                    <span className="icon">🗑️</span> {/* Trash icon */}
                   </button>
                 </div>
               ))}
