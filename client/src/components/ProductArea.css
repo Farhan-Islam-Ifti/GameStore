@@ -1,77 +1,89 @@
+:root {
+    --bgColor: #1a1a2e;
+    --textColor: #ffffff;
+    --cardBgColor: #16213e;
+    --cardHoverColor: #0f3460;
+    --priceColor: #4CAF50;
+    --discountColor: #ff4444;
+    --buttonColor: #4CAF50;
+    --buttonHoverColor: #45a049;
+}
+
 .product-area {
     padding: 20px;
     background-color: var(--bgColor);
-  }
-  
-  .product-area h2 {
+}
+
+.product-area h2 {
     font-size: 2rem;
-    color: #333;
+    color: var(--textColor);
     margin-bottom: 20px;
     text-align: center;
-  }
-  
-  .game-grid {
+}
+
+.game-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
-  }
-  
-  .game-card {
-    background-color: #fff;
+}
+
+.game-card {
+    background-color: var(--cardBgColor);
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    transition: transform 0.3s ease;
-  }
-  
-  .game-card:hover {
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.game-card:hover {
     transform: translateY(-5px);
-  }
-  
-  .game-card img {
+    background-color: var(--cardHoverColor);
+}
+
+.game-card img {
     width: 100%;
     height: 200px;
     object-fit: cover;
-  }
-  
-  .game-card h3 {
+}
+
+.game-card h3 {
     font-size: 1.2rem;
     margin: 10px 15px;
-    color: #333;
-  }
-  
-  .game-card p {
+    color: var(--textColor);
+}
+
+.game-card p {
     margin: 5px 15px;
     color: #666;
-  }
-  
-  .game-card .genre {
+}
+
+.game-card .genre {
     font-style: italic;
-  }
-  
-  .game-card .platform {
+}
+
+.game-card .platform {
     font-size: 0.9rem;
-  }
-  
-  .game-card .price {
+}
+
+.game-card .price {
     font-weight: bold;
-    color: #4CAF50;
-  }
-  
-  .game-card .discount {
-    background-color: #ff4444;
-    color: white;
+    color: var(--priceColor);
+}
+
+.game-card .discount {
+    background-color: var(--discountColor);
+    color: var(--textColor);
     padding: 5px 10px;
     border-radius: 5px;
     font-size: 0.9rem;
     display: inline-block;
     margin: 10px 15px 5px;
-  }
-  
-  .game-card button {
-    background-color: #4CAF50;
+}
+
+.game-card button {
+    background-color: var(--buttonColor);
     border: none;
-    color: white;
+    color: var(--textColor);
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;
@@ -81,14 +93,14 @@
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease;
-  }
-  
-  .game-card button:hover {
-    background-color: #45a049;
-  }
-  
-  @media (max-width: 768px) {
+}
+
+.game-card button:hover {
+    background-color: var(--buttonHoverColor);
+}
+
+@media (max-width: 768px) {
     .game-grid {
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
-  }
+}
