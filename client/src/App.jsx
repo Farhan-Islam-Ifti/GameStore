@@ -10,7 +10,7 @@ import axios from 'axios';
 import { Toaster } from 'react-hot-toast';
 
 axios.defaults.baseURL = 'https://game-store-server-jet.vercel.app';
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = false;
 
 function App() {
   const isUserSignedIn = !!localStorage.getItem('token');
