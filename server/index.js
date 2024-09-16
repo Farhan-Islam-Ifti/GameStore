@@ -22,10 +22,10 @@ app.use(logger)
 
 
 app.use(cookieParser())
-app.use(cors({
+app.use(cors(
    // origin: 'https://game-store-client.vercel.app', // Allow your frontend origin
    // credentials: true, // Allow cookies to be sent
-}));
+));
 
 //app.use('/', express.static(path.join(__dirname, 'public')))
 app.use(express.json());
