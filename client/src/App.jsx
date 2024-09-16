@@ -5,7 +5,7 @@ import './tailwind.css';
 import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
-import CartPage from './components/CartPage';
+import Cart from './components/CartPage';
 import axios from 'axios';
 import { Toaster } from 'react-hot-toast';
 
