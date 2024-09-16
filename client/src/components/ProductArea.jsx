@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { ShoppingCart } from "lucide-react";
+//import { ShoppingCart } from "lucide-react";
 import "./ProductArea.css";
 
 const CustomAlert = ({ message, onClose }) => (
