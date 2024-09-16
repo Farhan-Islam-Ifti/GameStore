@@ -22,7 +22,7 @@ app.use(logger)
 
 
 app.use(cookieParser())
-app.use(cors( Allow cookies to be sent));
+app.use(cors());
 
 //app.use('/', express.static(path.join(__dirname, 'public')))
 app.use(express.json());
