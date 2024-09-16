@@ -2,12 +2,29 @@ import { Link } from "react-router-dom";
 import './Navbar.css'; // Import the CSS file
 import { TiShoppingCart } from "react-icons/ti";
 import { IoSearchCircleSharp } from "react-icons/io5";
-
 import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const [isMobile, setIsMobile] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
+
+  useEffect(() => {
+    const loadCart = () => {
+      const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
+      const totalItems = savedCart.reduce((acc, item) => acc + (item.quantity || 1), 0);
+      setCartCount(totalItems);
+    };
+
+    loadCart();
+
+    // Add event listener to handle updates from other tabs
+    window.addEventListener('storage', loadCart);
+
+    return () => {
+      window.removeEventListener('storage', loadCart);
+    };
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -52,8 +69,9 @@ export default function Navbar() {
       {/* Nav Links */}
       <div className={`nav-links space-x-2 ml-auto ${showSearchBar && isMobile ? 'hidden' : ''}`}>
         <Link to="/" className="hover:text-blue-400">Home</Link>
-        <Link to="/library" className="hover:text-blue-400">
-          <TiShoppingCart />
+        <Link to="/cart" className="hover:text-blue-400 cart-icon-container">
+          <TiShoppingCart className="cart-icon" />
+          {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
         </Link>
         <Link to="/register" className="hover:text-blue-400">Register</Link>
         <Link to="/login" className="hover:text-blue-400">Login</Link>

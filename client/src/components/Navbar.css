@@ -1,162 +1,173 @@
-/* Import Poppins font */
+/* Navbar.css */
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
 .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #000; /* Background color */
-    padding: 0.75rem 1.5rem; /* Adjust padding to reduce height */
-    z-index: 1000; /* Ensure it is above other content */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: adds a subtle shadow */
-    height: 60px; /* Fixed height for consistency */
-    display: flex;
-    align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #000; /* Background color */
+  padding: 0.75rem 1.5rem; /* Adjust padding to reduce height */
+  z-index: 1000; /* Ensure it is above other content */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: adds a subtle shadow */
+  height: 60px; /* Fixed height for consistency */
+  display: flex;
+  align-items: center;
 }
 
 .navbar-title {
-    margin-right: 2rem; /* Add space between title and search bar */
+  margin-right: 2rem; /* Add space between title and search bar */
 }
+
 .navbar a {
-    position: relative;
-    font-size: 1.1em; /* Adjust font size as needed */
-    color: #91bbb0; /* Change text color */
-    text-decoration: none;
-    padding: 6px 20px; /* Adjust padding */
-    transition: color 0.5s, transform 0.5s;
+  position: relative;
+  font-size: 1.1em; /* Adjust font size as needed */
+  color: #91bbb0; /* Change text color */
+  text-decoration: none;
+  padding: 6px 20px; /* Adjust padding */
+  transition: color 0.5s, transform 0.5s;
 }
 
 .navbar a:hover {
-    color: #0ef; /* Hover text color */
-    border-bottom: 2px solid #0ef; /* Bottom border color */
-    border-radius: 15px;
+  color: #0ef; /* Hover text color */
+  border-bottom: 2px solid #0ef; /* Bottom border color */
+  border-radius: 15px;
 }
 
 .navbar a span {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    transform: scale(0) translateY(50px); /* Initial state */
-    opacity: 0;
-    transition: transform 0.5s, opacity 0.5s;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  transform: scale(0) translateY(50px); /* Initial state */
+  opacity: 0;
+  transition: transform 0.5s, opacity 0.5s;
 }
 
 .navbar a:hover span {
-    transform: scale(1) translateY(0); /* Hover state */
-    opacity: 1;
+  transform: scale(1) translateY(0); /* Hover state */
+  opacity: 1;
 }
 
 .space-x-2 {
-    display: flex;
-    gap: 0.5rem; /* Adjust gap between links */
+  display: flex;
+  gap: 0.5rem; /* Adjust gap between links */
 }
 
 .ml-auto {
-    margin-left: auto;
+  margin-left: auto;
 }
-
 
 /* Search Bar and Icon */
 .search-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
-    max-width: 400px;
-    margin-left: 1rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  max-width: 400px;
+  margin-left: 1rem;
 }
 
 .search-bar {
-    width: 100%;
-    padding: 8px 15px;
-    padding-right: 40px;
-    border: 2px solid #0ef;
-    border-radius: 25px;
-    background-color: #1a1a1a;
-    color: #fff;
-    transition: border-color 0.3s, box-shadow 0.3s;
-    outline: none;
+  width: 100%;
+  padding: 8px 15px;
+  padding-right: 40px;
+  border: 2px solid #0ef;
+  border-radius: 25px;
+  background-color: #1a1a1a;
+  color: #fff;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  outline: none;
 }
 
 .search-bar::placeholder {
-    color: #777;
+  color: #777;
 }
 
 .search-bar:focus {
-    border-color: #0ef;
-    box-shadow: 0 0 8px rgba(14, 239, 255, 0.6);
+  border-color: #0ef;
+  box-shadow: 0 0 8px rgba(14, 239, 255, 0.6);
 }
 
 .search-icon-container {
-    position: absolute;
-    right: 10px;
-    background-color: #000000;
-    padding: 5px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
+  position: absolute;
+  right: 10px;
+  background-color: #000000;
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
 }
 
 .search-icon {
-    color: #fff;
-    font-size: 1.5rem;
+  color: #fff;
+  font-size: 1.5rem;
 }
 
-/* Hide search bar on small screens initially */
+/* Cart Icon and Counter */
+.cart-icon-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cart-icon {
+  font-size: 1.5rem;
+}
+
+.cart-count {
+  position: absolute;
+  top: -10px; /* Adjust as needed */
+  right: -10px; /* Adjust as needed */
+  background-color: #e94560; /* Counter background color */
+  color: #fff; /* Counter text color */
+  border-radius: 50%;
+  width: 20px; /* Counter diameter */
+  height: 20px; /* Counter diameter */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
 @media (max-width: 768px) {
-    .search-bar {
-        display: none;
-    }
-
-    .search-bar.visible {
-        display: block;
-    }
-
-    .search-icon-container {
-        background-color: #000000;
-    }
-
-    .search-mobile {
-        max-width: none;
-    }
-}
-
-/* Hidden class for nav-links */
-.hidden {
+  .search-bar {
     display: none;
-}
+  }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .navbar {
-        padding: 0.75rem 1rem;
-    }
+  .search-bar.visible {
+    display: block;
+  }
 
-    .space-x-2 {
-        gap: 0.5rem;
-    }
+  .search-icon-container {
+    background-color: #000000;
+  }
+
+  .search-mobile {
+    max-width: none;
+  }
 }
 
 @media (max-width: 480px) {
-    .navbar {
-        padding: 0.5rem;
-    }
+  .navbar {
+    padding: 0.5rem;
+  }
 
-    .search-container {
-        width: 100%;
-    }
+  .search-container {
+    width: 100%;
+  }
 }
