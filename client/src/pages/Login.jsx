@@ -30,11 +30,13 @@ export default function Login() {
         toast.error(response.data.error);
       } else {
         setData({ email: '', password: '' });
-        localStorage.setItem('token', response.data.accessToken);
+        localStorage.setItem('accessToken', response.data.accessToken);
+        localStorage.setItem('refreshToken', response.data.refreshToken);
         toast.success('Login Successful. Welcome!');
         navigate('/dashboard');
       }
     } catch (error) {
+      console.error('Login request error:', error); // Log the error for debugging
       if (error.response && error.response.data && error.response.data.error) {
         toast.error(error.response.data.error);
       } else {

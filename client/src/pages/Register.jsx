@@ -34,10 +34,13 @@ export default function Register() {
           email: "",
           password: "",
         });
+        localStorage.setItem('accessToken', response.data.accessToken);
+        localStorage.setItem('refreshToken', response.data.refreshToken);
         toast.success("Registration Successful. Welcome!");
         navigate("/login");
       }
     } catch (error) {
+      console.error('Registration request error:', error); // Log the error for debugging
       if (error.response && error.response.data && error.response.data.error) {
         toast.error(error.response.data.error, {
           duration: 4000, // Set duration to 4000 milliseconds (4 seconds)
@@ -49,7 +52,7 @@ export default function Register() {
       }
     }
   };
-  
+
   return (
     <div className="background-image flex items-center justify-center w-full h-full">
       <div className="container">

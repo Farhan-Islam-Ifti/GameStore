@@ -6,13 +6,13 @@ const jwt = require('jsonwebtoken');
 const createTokens = (user) => {
   const accessToken = jwt.sign(
     { email: user.email, id: user._id, name: user.name },
-    process.env.JWT_SECRET,
+    process.env.ACCESS_TOKEN_SECRET,
     { expiresIn: '15m' }
   );
 
   const refreshToken = jwt.sign(
     { email: user.email, id: user._id, name: user.name },
-    process.env.JWT_SECRET,
+    process.env.REFRESH_TOKEN_SECRET,
     { expiresIn: '7d' }
   );
 
@@ -53,7 +53,17 @@ const registerUser = async (req, res) => {
       password: hashedPassword,
     });
 
-    // Return successful response
+    // Generate tokens
+    const { accessToken, refreshToken } = createTokens(user);
+
+    // Save refresh token in the user document
+    user.refreshToken = refreshToken;
+    await user.save();
+
+    // Set cookies and return successful response
+    res.cookie('accessToken', accessToken, { httpOnly: true });
+    res.cookie('refreshToken', refreshToken, { httpOnly: true });
+
     return res.status(201).json({
       message: 'Registration successful',
       user: {
@@ -61,6 +71,8 @@ const registerUser = async (req, res) => {
         name: user.name,
         email: user.email,
       },
+      accessToken,
+      refreshToken,
     });
   } catch (error) {
     console.error(error);
@@ -82,6 +94,12 @@ const loginUser = async (req, res) => {
     const match = await comparePassword(password, user.password);
     if (match) {
       const { accessToken, refreshToken } = createTokens(user);
+      
+      // Save refresh token in the user document
+      user.refreshToken = refreshToken;
+      await user.save();
+
+      // Set cookies and return successful response
       res.cookie('accessToken', accessToken, { httpOnly: true });
       res.cookie('refreshToken', refreshToken, { httpOnly: true });
 
@@ -92,6 +110,8 @@ const loginUser = async (req, res) => {
           name: user.name,
           email: user.email,
         },
+        accessToken,
+        refreshToken,
       });
     } else {
       return res.status(400).json({ error: 'Wrong password' });
@@ -105,7 +125,7 @@ const loginUser = async (req, res) => {
 const getProfile = (req, res) => {
   const { accessToken } = req.cookies;
   if (accessToken) {
-    jwt.verify(accessToken, process.env.JWT_SECRET, (err, user) => {
+    jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
       if (err) return res.sendStatus(403);
       res.json(user);
     });
@@ -114,18 +134,33 @@ const getProfile = (req, res) => {
   }
 };
 
-const refreshToken = (req, res) => {
+const refreshToken = async (req, res) => {
   const { refreshToken } = req.cookies;
-  if (refreshToken) {
-    jwt.verify(refreshToken, process.env.JWT_SECRET, (err, user) => {
-      if (err) return res.sendStatus(403);
-      const { accessToken, refreshToken: newRefreshToken } = createTokens(user);
-      res.cookie('accessToken', accessToken, { httpOnly: true });
-      res.cookie('refreshToken', newRefreshToken, { httpOnly: true });
-      res.json({ accessToken, refreshToken: newRefreshToken });
-    });
-  } else {
-    res.sendStatus(403);
+  if (!refreshToken) return res.sendStatus(403);
+
+  try {
+    // Verify the refresh token
+    const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+    const user = await User.findById(decoded.id);
+    if (!user || user.refreshToken !== refreshToken) {
+      return res.sendStatus(403);
+    }
+
+    // Generate new tokens
+    const { accessToken, refreshToken: newRefreshToken } = createTokens(user);
+    
+    // Save new refresh token in the user document
+    user.refreshToken = newRefreshToken;
+    await user.save();
+
+    // Set cookies and return new tokens
+    res.cookie('accessToken', accessToken, { httpOnly: true });
+    res.cookie('refreshToken', newRefreshToken, { httpOnly: true });
+
+    res.json({ accessToken, refreshToken: newRefreshToken });
+  } catch (err) {
+    console.error(err);
+    return res.sendStatus(403);
   }
 };
 

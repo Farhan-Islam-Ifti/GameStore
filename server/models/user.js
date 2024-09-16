@@ -1,16 +1,22 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
-    name: String,
-    email: {
-        type: String,
-        unique: true
-    },
-    password: String,
-    refreshToken: String // Add refreshToken field
+const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  refreshToken: {
+    type: String,
+  },
 });
 
-const UserModel = mongoose.model('User', userSchema);
-
-module.exports = UserModel;
+module.exports = mongoose.model('User', userSchema);

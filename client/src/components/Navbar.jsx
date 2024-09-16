@@ -10,11 +10,11 @@ export default function Navbar() {
 
   const logout = async () => {
     try {
-      await axios.post('/logout'); // Adjust endpoint as per your server setup
-      setUser(null); // Clear user context
-      localStorage.removeItem('token'); // Remove token from localStorage
-      toast.success('Logged out successfully'); // Show success message
-      navigate('/login'); // Redirect to login page
+      await axios.post('/logout'); 
+      setUser(null); 
+      localStorage.removeItem('token'); 
+      toast.success('Logged out successfully');
+      navigate('/login'); 
     } catch (error) {
       console.error('Logout error:', error);
       toast.error('Failed to log out. Please try again.'); // Show error message
