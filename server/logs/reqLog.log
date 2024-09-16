@@ -271,3 +271,11 @@
 20240915	14:28:40	544f22be-321d-4b00-909d-8e4f83263dc0	GET	/uploads/1726386057713.jpeg	undefined
 20240915	14:29:03	e06c5c1b-bebf-4149-ba89-63f29671d91d	GET	/api/v1/games	https://game-store-client.vercel.app
 20240915	14:29:03	6124afe0-91d5-4f02-9310-6552d20dc4bd	GET	/uploads/1726386057713.jpeg	undefined
+20240916	23:08:17	2a705759-f307-4468-97a5-11c82d1d649f	GET	/api/v1/games	http://localhost:5173
+20240916	23:08:17	a00b361b-995e-453d-9578-5cc09d0e1572	GET	/api/v1/games	http://localhost:5173
+20240916	23:08:28	9028135a-9060-41c0-a7bc-aa0f33b9339e	GET	/api/v1/games	http://localhost:5173
+20240916	23:08:28	19aa1b95-0186-421d-b311-5dea14d24a9b	GET	/api/v1/games	http://localhost:5173
+20240916	23:08:32	47c982b1-2dd1-4031-b7d0-bd00d1ce3d6b	OPTIONS	/login	http://localhost:5173
+20240916	23:08:32	cf7a6d11-a724-48d2-a385-c5247890eef0	POST	/login	http://localhost:5173
+20240916	23:08:33	445f2d6a-124e-4244-a315-edcfc1993f63	GET	/api/v1/games	http://localhost:5173
+20240916	23:08:33	9dfbfc57-c962-4701-9e61-0bd6b0e04f91	GET	/api/v1/games	http://localhost:5173

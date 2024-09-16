@@ -7,7 +7,10 @@ const verifyJWT = require('../middlewares/verifyJWT')
 const authController = require('../controllers/authController')
 
 //middleware  
-
+router.use(cors({
+    credentials: true,
+    origin: "https://game-store-client.vercel.app" 
+}));
 //router.use(verifyJWT)
 
 router.get('/', test)
