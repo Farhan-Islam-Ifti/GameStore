@@ -24,7 +24,7 @@ function App() {
         <Route path='/register' element={<div className="background-image"><Register /></div>} />
         <Route path='/login' element={<div className="background-image"><Login /></div>} />
         {isUserSignedIn && <Route path='/account' element={<Account />} />}
-         <Route path="/cart" component={CartPage} />
+         <Route path="/cart" component={Cart} />
       </Routes>
     </div>
   );
