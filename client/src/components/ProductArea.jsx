@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-//import { ShoppingCart } from "lucide-react";
 import "./ProductArea.css";
 
 const CustomAlert = ({ message, onClose }) => (
   <div className="custom-alert">
-    <ShoppingCart style={{ marginRight: '10px' }} size={18} />
+    <span className="cart-icon">&#128722;</span> {/* Unicode cart icon */}
     {message}
     <button onClick={onClose}>×</button>
   </div>
