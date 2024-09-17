@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import axios from 'axios';
 import './AdminAddGames.css';
 
 const AdminAddGame = () => {
@@ -66,17 +65,14 @@ const AdminAddGame = () => {
         }
       });
 
-      const response = await axios.post('/api/v1/games', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      setMessage(`Game added successfully: ${response.data.title}`);
+      // Simulating API call
+      console.log('Submitting game data:', formData);
+      setMessage('Game added successfully!');
       setGame(initialGameState);
       setPreviewImage(null);
     } catch (error) {
       setMessage('Error adding game. Please try again.');
-      console.error('Error adding game:', error.response ? error.response.data : error.message);
+      console.error('Error adding game:', error);
     }
   };
 
@@ -84,20 +80,35 @@ const AdminAddGame = () => {
     <div className="admin-add-game">
       <h2>Add New Game</h2>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="title">Title:</label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={game.title}
-            onChange={handleChange}
-            required
-          />
+        <div className="form-row">
+          <div className="form-group">
+            <label htmlFor="title">Title</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value={game.title}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="price">Price</label>
+            <input
+              type="number"
+              id="price"
+              name="price"
+              value={game.price}
+              onChange={handleChange}
+              step="0.01"
+              min="0"
+              required
+            />
+          </div>
         </div>
 
         <div className="form-group">
-          <label htmlFor="description">Description:</label>
+          <label htmlFor="description">Description</label>
           <textarea
             id="description"
             name="description"
@@ -107,18 +118,120 @@ const AdminAddGame = () => {
           />
         </div>
 
+        <div className="form-row">
+          <div className="form-group">
+            <label htmlFor="genre">Genre</label>
+            <input
+              type="text"
+              id="genre"
+              name="genre"
+              value={game.genre}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="platform">Platforms</label>
+            <input
+              type="text"
+              id="platform"
+              name="platform"
+              value={game.platform.join(', ')}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        </div>
+
+        <div className="form-row">
+          <div className="form-group">
+            <label htmlFor="developer">Developer</label>
+            <input
+              type="text"
+              id="developer"
+              name="developer"
+              value={game.developer}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="publisher">Publisher</label>
+            <input
+              type="text"
+              id="publisher"
+              name="publisher"
+              value={game.publisher}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        </div>
+
+        <div className="form-row">
+          <div className="form-group">
+            <label htmlFor="releaseDate">Release Date</label>
+            <input
+              type="date"
+              id="releaseDate"
+              name="releaseDate"
+              value={game.releaseDate}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="rating">Rating</label>
+            <input
+              type="number"
+              id="rating"
+              name="rating"
+              value={game.rating}
+              onChange={handleChange}
+              step="0.1"
+              min="0"
+              max="5"
+              required
+            />
+          </div>
+        </div>
+
         <div className="form-group">
-          <label htmlFor="price">Price:</label>
+          <label htmlFor="tags">Tags</label>
           <input
-            type="number"
-            id="price"
-            name="price"
-            value={game.price}
+            type="text"
+            id="tags"
+            name="tags"
+            value={game.tags.join(', ')}
             onChange={handleChange}
-            step="0.01"
-            min="0"
-            required
           />
+        </div>
+
+        <div className="form-row">
+          <div className="form-group checkbox-group">
+            <label htmlFor="inStock">
+              <input
+                type="checkbox"
+                id="inStock"
+                name="inStock"
+                checked={game.inStock}
+                onChange={handleChange}
+              />
+              In Stock
+            </label>
+          </div>
+          <div className="form-group">
+            <label htmlFor="discountPercentage">Discount %</label>
+            <input
+              type="number"
+              id="discountPercentage"
+              name="discountPercentage"
+              value={game.discountPercentage}
+              onChange={handleChange}
+              min="0"
+              max="100"
+            />
+          </div>
         </div>
 
         <div className="image-input-group">
@@ -164,119 +277,9 @@ const AdminAddGame = () => {
 
           {previewImage && (
             <div className="image-preview">
-              <img src={previewImage} alt="Preview" style={{ maxWidth: '200px', maxHeight: '200px' }} />
+              <img src={previewImage} alt="Preview" />
             </div>
           )}
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="genre">Genre:</label>
-          <input
-            type="text"
-            id="genre"
-            name="genre"
-            value={game.genre}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="platform">Platforms (comma-separated):</label>
-          <input
-            type="text"
-            id="platform"
-            name="platform"
-            value={game.platform.join(', ')}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="developer">Developer:</label>
-          <input
-            type="text"
-            id="developer"
-            name="developer"
-            value={game.developer}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="publisher">Publisher:</label>
-          <input
-            type="text"
-            id="publisher"
-            name="publisher"
-            value={game.publisher}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="releaseDate">Release Date:</label>
-          <input
-            type="date"
-            id="releaseDate"
-            name="releaseDate"
-            value={game.releaseDate}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="rating">Rating:</label>
-          <input
-            type="number"
-            id="rating"
-            name="rating"
-            value={game.rating}
-            onChange={handleChange}
-            step="0.1"
-            min="0"
-            max="5"
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="tags">Tags (comma-separated):</label>
-          <input
-            type="text"
-            id="tags"
-            name="tags"
-            value={game.tags.join(', ')}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="inStock">In Stock:</label>
-          <input
-            type="checkbox"
-            id="inStock"
-            name="inStock"
-            checked={game.inStock}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="discountPercentage">Discount Percentage:</label>
-          <input
-            type="number"
-            id="discountPercentage"
-            name="discountPercentage"
-            value={game.discountPercentage}
-            onChange={handleChange}
-            min="0"
-            max="100"
-          />
         </div>
 
         <button type="submit">Add Game</button>
