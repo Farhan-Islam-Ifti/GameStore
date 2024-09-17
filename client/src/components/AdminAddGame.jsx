@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import axios from 'axios';
 import './AdminAddGames.css';
 
 const AdminAddGame = () => {
@@ -51,6 +52,7 @@ const AdminAddGame = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage('');
+    
     try {
       const formData = new FormData();
       Object.keys(game).forEach(key => {
@@ -65,11 +67,20 @@ const AdminAddGame = () => {
         }
       });
 
-      // Simulating API call
-      console.log('Submitting game data:', formData);
-      setMessage('Game added successfully!');
-      setGame(initialGameState);
-      setPreviewImage(null);
+      // Make API call
+      const response = await axios.post('https://game-store-server-jet.vercel.app/api/v1/games', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (response.status === 201) {
+        setMessage('Game added successfully!');
+        setGame(initialGameState);
+        setPreviewImage(null);
+      } else {
+        setMessage('Failed to add game. Please try again.');
+      }
     } catch (error) {
       setMessage('Error adding game. Please try again.');
       console.error('Error adding game:', error);
