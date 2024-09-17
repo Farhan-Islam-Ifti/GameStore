@@ -2,8 +2,20 @@
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ],
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": { 
+        "distDir": "dist",
+        "buildCommand": "npm run build"
+      }
+    }
+  ],
   "routes": [
     { "handle": "filesystem" },
-    { "src": "/[^.]+", "dest": "/index.html" }
+    { "src": "/assets/(.*)", "dest": "/assets/$1" },
+    { "src": "/(.*).(js|css|svg|png|jpg|jpeg|gif|ico)$", "dest": "/$1.$2" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
