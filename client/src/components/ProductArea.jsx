@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./ProductArea.css";
+import { FaArrowRight } from "react-icons/fa";
 
 const CustomAlert = ({ message, onClose }) => (
   <div className="custom-alert">
@@ -63,6 +64,12 @@ const ProductArea = () => {
           onClose={() => setNotification(null)} 
         />
       )}
+      <div className="promotion-container">
+        <h3 className="sectionTitle">Games on Promotion</h3>
+        <a href="#" className="viewMore" onClick={(e) => e.preventDefault()}>
+          View more games <FaArrowRight className="icon" />
+        </a>
+      </div>
       <div className="game-grid">
         {games.map((game) => (
           <div key={game._id} className="game-card">

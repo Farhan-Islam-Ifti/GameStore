@@ -3,6 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
 import './Login.css'; // Import the CSS file
+import { useAuth } from '../context/auth';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -11,25 +12,48 @@ export default function Login() {
     password: '',
   });
   const [loading, setLoading] = useState(false);
+  const [auth, setAuth] = useAuth(); // Custom hook to manage auth context
 
   const loginUser = async (e) => {
     e.preventDefault();
     const { email, password } = data;
     setLoading(true); // Start loading
+
     try {
+      // Send login request to the backend
       const response = await axios.post('/login', {
         email,
         password
       });
       
+      // Check if the backend returned an error
       if (response.data.error) {
         toast.error(response.data.error);
       } else {
-        setData({});
+        // Reset form data
+        setData({ email: '', password: '' });
+        
+        // Display success message
         toast.success('Login Successful. Welcome!');
+
+        // Update auth context with user data and token
+        setAuth({
+          ...auth,
+          user: response.data.user, // Store user data
+          token: response.data.accessToken // Store access token
+        });
+      
+        // Store user and token in localStorage
+        localStorage.setItem("auth", JSON.stringify({
+          user: response.data.user,
+          token: response.data.accessToken
+        }));
+
+        // Navigate to the home page or any protected route
         navigate('/');
       }
     } catch (error) {
+      // Handle any error during login request
       if (error.response && error.response.data && error.response.data.error) {
         toast.error(error.response.data.error);
       } else {
@@ -45,6 +69,8 @@ export default function Login() {
       <div className="container">
         <form onSubmit={loginUser} className="login-form">
           <h1 className="text-4xl text-white font-bold text-center mb-6">Login</h1>
+          
+          {/* Email input */}
           <div className="relative my-4">
             <input
               type="email"
@@ -54,8 +80,12 @@ export default function Login() {
               value={data.email}
               onChange={(e) => setData({ ...data, email: e.target.value })}
             />
-            <label htmlFor="email" className="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-0 left-0 peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email</label>
+            <label htmlFor="email" className="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-0 left-0 peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+              Email
+            </label>
           </div>
+
+          {/* Password input */}
           <div className="relative my-4">
             <input
               type="password"
@@ -65,15 +95,22 @@ export default function Login() {
               value={data.password}
               onChange={(e) => setData({ ...data, password: e.target.value })}
             />
-            <label htmlFor="password" className="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-0 left-0 peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
+            <label htmlFor="password" className="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-0 left-0 peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+              Password
+            </label>
           </div>
-          <button type='submit' 
+
+          {/* Submit button */}
+          <button 
+            type='submit' 
             disabled={loading}
             className="w-full mb-4 text-[18px] mt-6 rounded-full bg-white text-emerald-800 hover:bg-emerald-600 hover:text-white py-2 transition-colors duration-300"
           >
             {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
+
+        {/* Display loading spinner if loading */}
         {loading && <div className="loading-spinner"></div>}
       </div>
     </div>

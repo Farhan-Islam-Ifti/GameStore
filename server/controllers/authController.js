@@ -62,46 +62,62 @@ const loginUser = asyncHandler(async (req, res) => {
     try {
         const { email, password } = req.body;
 
+        // Check if email and password are provided
         if (!email || !password) {
             return res.status(400).json({ message: 'All fields are required' });
         }
 
+        // Find the user by email
         const user = await User.findOne({ email }).exec();
         if (!user) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
+        // Compare passwords
         const match = await comparePassword(password, user.password);
         if (!match) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
+        // Generate access token
         const accessToken = jwt.sign(
             { "UserInfo": { "email": user.email } },
             process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: '15m' }
+            { expiresIn: '15m' } // Token expires in 15 minutes
         );
 
+        // Generate refresh token
         const refreshToken = jwt.sign(
             { "email": user.email },
             process.env.REFRESH_TOKEN_SECRET,
-            { expiresIn: '7d' }
+            { expiresIn: '7d' } // Refresh token expires in 7 days
         );
 
+        // Store refresh token in HTTP-only cookie
         res.cookie('jwt', refreshToken, {
             httpOnly: true,
-            secure: process.env.NODE_ENV !== 'development',
-            sameSite: 'None',
-            maxAge: 7 * 24 * 60 * 60 * 1000
+            secure: process.env.NODE_ENV !== 'development', // Only send cookie over HTTPS if not in development
+            sameSite: 'None', // Cross-site cookie
+            maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
         });
 
-        res.json({ accessToken });
+        // Return access token and user info in response
+        res.json({
+            user: {
+                id: user._id,
+                name: user.name,   // Include the name
+                email: user.email
+            },
+            accessToken: accessToken
+        });
 
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: 'Internal server error' });
     }
 });
+
+
 
 const refresh = asyncHandler(async (req, res) => {
     const cookies = req.cookies;

@@ -20,7 +20,35 @@
     margin-bottom: 20px;
     text-align: center;
 }
-
+.promotion-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 16px 0; /* Space between top and bottom */
+    padding: 0 15px; /* Optional padding for horizontal spacing */
+  }
+  
+  .sectionTitle {
+    text-transform: uppercase;
+    margin: 0;
+  }
+  
+  .viewMore {
+    display: flex;
+    align-items: center; /* Aligns the text and icon vertically */
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+  }
+  
+  .viewMore .icon {
+    margin-left: 8px; /* Space between text and icon */
+  }
+  
+  .viewMore:hover {
+    color: #91bbb0; /* Change color on hover */
+  }
 .game-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));

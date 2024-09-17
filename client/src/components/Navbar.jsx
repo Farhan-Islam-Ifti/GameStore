@@ -3,12 +3,23 @@ import './Navbar.css'; // Import the CSS file
 import { TiShoppingCart } from "react-icons/ti";
 import { IoSearchCircleSharp } from "react-icons/io5";
 import { useState, useEffect } from "react";
+import { useAuth } from '../context/auth';
+import toast from "react-hot-toast";
 
 export default function Navbar() {
   const [isMobile, setIsMobile] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [cartCount, setCartCount] = useState(0);
-
+  const [auth, setAuth] = useAuth();
+  const handleLogout = () => {
+    setAuth({
+      ...auth,
+      user: null,
+      token: null,
+    });
+    localStorage.removeItem("auth");
+    toast.success("Logout Successfully");
+  };
   useEffect(() => {
     const loadCart = () => {
       const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -73,8 +84,16 @@ export default function Navbar() {
           <TiShoppingCart className="cart-icon" />
           {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
         </Link>
-        <Link to="/register" className="hover:text-blue-400">Register</Link>
-        <Link to="/login" className="hover:text-blue-400">Login</Link>
+        {!auth?.user ? (
+                <>
+                  <Link to="/register" className="hover:text-blue-400">Register</Link>
+                  <Link to="/login" className="hover:text-blue-400">Login</Link>
+                </>
+              ) : (
+                <>
+                   <Link onClick={handleLogout} to="/login" className="hover:text-blue-400">Log Out</Link>
+                </>
+              )}
       </div>
     </nav>
   );
