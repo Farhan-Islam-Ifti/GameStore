@@ -1,166 +1,199 @@
+@import url(https://db.onlinewebfonts.com/c/b2932945dbc71a0a2a4c03dd305cfe3a?family=BauhausBold);
 :root {
-    --bgColor: #1a1a2e;
-    --textColor: #ffffff;
-    --cardBgColor: #16213e;
-    --cardHoverColor: #0f3460;
-    --priceColor: #4CAF50;
-    --discountColor: #ff4444;
-    --buttonColor: #4CAF50;
-    --buttonHoverColor: #45a049;
+  --bgColor: #1a1a2e;
+  --textColor: #ffffff;
+  --cardBgColor: #16213e;
+  --cardHoverColor: #0f3460;
+  --priceColor: #4CAF50;
+  --discountColor: #ff4444;
+  --buttonColor: #4CAF50;
+  --buttonHoverColor: #45a049;
 }
-
 .product-area {
-    padding: 20px;
-    background-color: var(--bgColor);
+  padding: 20px;
 }
 
 .product-area h2 {
-    font-size: 2rem;
-    color: var(--textColor);
-    margin-bottom: 20px;
-    text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
 }
+
 .promotion-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 16px 0; /* Space between top and bottom */
-    padding: 0 15px; /* Optional padding for horizontal spacing */
-  }
-  
-  .sectionTitle {
-    text-transform: uppercase;
-    margin: 0;
-  }
-  
-  .viewMore {
-    display: flex;
-    align-items: center; /* Aligns the text and icon vertically */
-    text-decoration: none;
-    color: #ffffff;
-    font-size: 1.2rem;
-    transition: color 0.3s;
-  }
-  
-  .viewMore .icon {
-    margin-left: 8px; /* Space between text and icon */
-  }
-  
-  .viewMore:hover {
-    color: #91bbb0; /* Change color on hover */
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 16px 0; /* Space between top and bottom */
+  padding: 0 15px; /* Optional padding for horizontal spacing */
+}
+
+.sectionTitle {
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.viewMore {
+  display: flex;
+  align-items: center; /* Aligns the text and icon vertically */
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 1.2rem;
+  transition: color 0.3s;
+}
+
+.viewMore .icon {
+  margin-left: 8px; /* Space between text and icon */
+}
+
+.viewMore:hover {
+  color: #91bbb0; /* Change color on hover */
+}
 /* Search Container */
 .search-container {
-    position: relative;
-    display: flex;
-    margin-left: 80%;
-    justify-content: flex-end; /* Aligns the search bar to the right */
-    margin-bottom: 20px; /* Space between search bar and game grid */
+  position: relative;
+  display: flex;
+  justify-content: flex-end; /* Aligns the search bar to the right */
+  margin-bottom: 20px; /* Space between search bar and game grid */
+}
+@media(max-width:500px){
+  .search-container{
+    position: center;
+    justify-content: center;
   }
-  
-  /* Search Input */
-  .search-input {
-    width: 300px; /* Adjust the width as needed */
-    padding: 8px 15px;
-    border: 2px solid #0ef;
-    border-radius: 25px;
-    background-color: #1a1a1a;
-    color: #fff;
-    transition: border-color 0.3s, box-shadow 0.3s;
-    outline: none;
-  }
-  
-  .search-input::placeholder {
-    color: #777;
-  }
-  
-  .search-input:focus {
-    border-color: #0ef;
-    box-shadow: 0 0 8px rgba(14, 239, 255, 0.6);
-  }
+}
 
+/* Search Input */
+.search-input {
+  width: 300px; /* Adjust the width as needed */
+  padding: 8px 15px;
+  border: 2px solid #0ef;
+  border-radius: 25px;
+  background-color: #1a1a1a;
+  color: #fff;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: #777;
+}
+
+.search-input:focus {
+  border-color: #0ef;
+  box-shadow: 0 0 8px rgba(14, 239, 255, 0.6);
+}
 
 
 .game-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
 }
 
-.game-card {
-    background-color: var(--cardBgColor);
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.3s ease, background-color 0.3s ease;
+.gameCard {
+  position: relative;
+  padding: 20px;
+  height: 400px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  background: var(--cardBgColor);
+  box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
+      5px 5px 15px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.gameCard:hover {
+  background-color: var(--cardHoverColor);
 }
 
-.game-card:hover {
-    transform: translateY(-5px);
-    background-color: var(--cardHoverColor);
-}
-
-.game-card img {
-    width: 100%;
-    height: 200px;
+.gameCard img {
+    border-radius: 20px;
     object-fit: cover;
+    object-position: center;
+    height: 50%;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
-.game-card h3 {
-    font-size: 1.2rem;
-    margin: 10px 15px;
-    color: var(--textColor);
+.gameCard .gameFeature {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
-.game-card p {
-    margin: 5px 15px;
-    color: #666;
-}
-
-.game-card .genre {
-    font-style: italic;
-}
-
-.game-card .platform {
-    font-size: 0.9rem;
-}
-
-.game-card .price {
-    font-weight: bold;
-    color: var(--priceColor);
-}
-
-.game-card .discount {
-    background-color: var(--discountColor);
-    color: var(--textColor);
+.gameCard .gameType {
+    background: var(--second);
     padding: 5px 10px;
-    border-radius: 5px;
+    border-radius: 10px;
+    font-weight: 400;
     font-size: 0.9rem;
-    display: inline-block;
-    margin: 10px 15px 5px;
+    letter-spacing: 1px;
+    color: #ffffff;
 }
 
-.game-card button {
-    background-color: var(--buttonColor);
-    border: none;
-    color: var(--textColor);
-    padding: 10px 20px;
+.gameCard .gameTitle {
+    font-family: 'BauhausBold';
+    font-size: 1.3rem;
+    color: #ffffff;
     text-align: center;
-    text-decoration: none;
-    display: block;
+    text-transform: uppercase;
+    margin: 0 auto;
+}
+
+.gameCard .gamePrice {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.gameCard .discount {
+    background: #ff0000;
+    padding: 2px 5px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.gameCard .prevPrice {
+    text-decoration: line-through;
+    text-decoration-color: #ff0000;
+    font-size: 0.9rem;
+    margin-left: 10px;
+}
+
+.gameCard .currentPrice {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.gameCard button {
+    background-color: var(--second);
+    position: center;
+    border: none;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
     font-size: 1rem;
-    margin: 15px auto;
     cursor: pointer;
-    border-radius: 5px;
     transition: background-color 0.3s ease;
+    text-align: center;
 }
 
-.game-card button:hover {
-    background-color: var(--buttonHoverColor);
+.gameCard button:hover {
+    background-color: #600f0f;
 }
-
 @media (max-width: 768px) {
-    .game-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
+  .gameCard {
+    height: auto; /* Allow height to adjust based on content */
+  }
+
+  .gameCard img {
+      height: 40%; /* Adjust image height */
+  }
 }
+

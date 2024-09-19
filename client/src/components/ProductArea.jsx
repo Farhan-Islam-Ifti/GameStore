@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import './ProductArea.css'
+import './ProductArea.css';
 import { Link } from 'react-router-dom';
 import { FaArrowRight } from "react-icons/fa";
-import { useAuth } from '../context/auth.jsx'; // Adjust the path to where your AuthProvider is located
+import GameRating from './GameRating'; // Import the GameRating component
 import { toast } from 'react-hot-toast';
 
 const CustomAlert = ({ message, onClose }) => (
@@ -18,6 +18,8 @@ const ProductArea = () => {
   const [games, setGames] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [notification, setNotification] = useState(null);
+  // 1. Add a displayLimit to control the number of visible games initially
+  const [displayLimit] = useState(5); // Change this number to set how many games are displayed by default
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -30,6 +32,7 @@ const ProductArea = () => {
     };
     fetchGames();
   }, []);
+
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -37,6 +40,9 @@ const ProductArea = () => {
   const filteredGames = games.filter((game) =>
     game.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  // 3. Display only a limited number of games if no search term is entered
+  // If there's a search term, show all matching games
+  const visibleGames = searchTerm ? filteredGames : filteredGames.slice(0, displayLimit);
 
 
   const addToCart = (game) => {
@@ -68,8 +74,7 @@ const ProductArea = () => {
     if (game.imageUrl) {
       return game.imageUrl;
     } else if (game._id) {
-      // Use the game ID to construct the image URL for buffer images
-      return '/api/v1/images/${game._id}';
+      return `/api/v1/images/${game._id}`;
     } else {
       return 'default-image.jpg';
     }
@@ -100,20 +105,31 @@ const ProductArea = () => {
         />
       </div>
       <div className="game-grid">
-        {filteredGames.map((game) => (
-          <div key={game._id} className="game-card">
+        {visibleGames.map((game) => (
+          <div key={game._id} className="gameCard">
             <img
               src={getImageSrc(game)}
               alt={game.title}
               onError={(e) => { e.target.onerror = null; e.target.src = 'default-image.jpg'; }}
             />
-            <h3>{game.title}</h3>
-            <p className="genre">{game.genre}</p>
-            <p className="platform">{game.platform.join(", ")}</p>
-            <p className="price">${game.price.toFixed(2)}</p>
-            {game.discountPercentage > 0 && (
-              <p className="discount">{game.discountPercentage}% OFF</p>
-            )}
+            <div className="gameFeature">
+              <span className="gameType">{game.genre}</span>
+              <GameRating rating={game.rating} />
+            </div>
+            <div className="gameTitle mt-4 mb-3">{game.title}</div>
+            <div className="gamePrice">
+              {game.discountPercentage > 0 && (
+                <>
+                  <span className="discount">
+                    {game.discountPercentage}% OFF
+                  </span>
+                  <span className="prevPrice">${game.price.toFixed(2)}</span>
+                </>
+              )}
+              <span className="currentPrice">
+                ${(game.price - (game.price * game.discountPercentage / 100)).toFixed(2)}
+              </span>
+            </div>
             <button onClick={() => addToCart(game)}>Add to Cart</button>
           </div>
         ))}

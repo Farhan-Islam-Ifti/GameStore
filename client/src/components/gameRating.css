@@ -1,0 +1,15 @@
+.gameRating {
+    display: flex;
+    gap: 2px;
+  }
+  
+  .full-star {
+    color: #f8c200; /* Gold color for full stars */
+    font-size: 1rem; /* Adjust size as needed */
+  }
+  
+  .empty-star {
+    color: #e0e0e0; /* Light gray for empty stars */
+    font-size: 1rem; /* Adjust size as needed */
+  }
+  

@@ -103,31 +103,34 @@
   }
 }
 
-
-@media (max-width: 600px) {
-  .search-bar {
-    display: none;
-  }
-
-  .search-bar.visible {
-    display: block;
-  }
-
-  .search-icon-container {
-    background-color: #000000;
-  }
-
-  .search-mobile {
-    max-width: none;
-  }
-}
-
 @media (max-width: 480px) {
   .navbar {
     padding: 0.5rem;
   }
+}
 
-  .search-container {
-    width: 100%;
+/* Adjustments for Register and Login buttons on small screens */
+@media (max-width: 450px) {
+  .nav-links {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent wrapping */
+  }
+
+  .nav-links::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for a cleaner look */
+  }
+
+  .navbar a {
+    padding: 4px 10px; /* Reduce padding to save space */
+    font-size: 0.9rem; /* Slightly smaller font */
+  }
+
+  .navbar-title {
+    margin-right: auto; /* Keep the title aligned to the left */
   }
 }
+
+
+
