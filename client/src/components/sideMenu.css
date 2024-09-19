@@ -48,3 +48,25 @@
     box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.15),
                 5px 5px 15px rgba(0, 0, 0, 0.35);
 }
+
+/* Styles for mobile devices */
+@media (max-width: 600px) {
+    .sideMenu {
+      width: 60px; /* Reduce width for mobile view */
+      padding: 15px;
+    }
+  
+    .sideMenu .nav li a {
+      justify-content: center; /* Center the icon */
+      padding: 10px;
+    }
+  
+    .sideMenu .navName {
+      display: none; /* Hide the text on mobile */
+    }
+  
+    .sideMenu .nav li a i {
+      font-size: 1.5em; /* Adjust the icon size */
+    }
+  }
+  

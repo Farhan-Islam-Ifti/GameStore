@@ -27,15 +27,7 @@ export default function Home() {
     <div className="home-container">
       {/* SideMenu stays constant */}
       <SideMenu />
-
-      {/* Links to Register and Login (shown when not logged in) */}
-      {!auth?.user && (
-        <div className="auth-links">
-          <Link to="/register" className="hover:text-blue-400">Register</Link>
-          <Link to="/login" className="hover:text-blue-400">Login</Link>
-        </div>
-      )}
-
+      
       {/* Banner where the content will change based on the route */}
       <div className="banner">
         <Routes>

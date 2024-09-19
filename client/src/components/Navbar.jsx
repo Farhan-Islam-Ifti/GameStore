@@ -6,11 +6,19 @@ import { useState, useEffect } from "react";
 import { useAuth } from '../context/auth';
 import toast from "react-hot-toast";
 import axios from 'axios';
+import { Badge } from "antd";
+import { Popper, Box, Typography, ListItemButton } from "@mui/material";
+import { usePopupState, bindHover, bindPopper } from "material-ui-popup-state/hooks";
+
 export default function Navbar() {
   const [isMobile, setIsMobile] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const [auth, setAuth] = useAuth();
+  const popupState = usePopupState({
+    variant: "popover",
+    popupId: "accountPopover",
+  });
   const handleLogout = async () => {
     try {
       // Get the current cart from localStorage
@@ -69,7 +77,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 768) {
+      if (window.innerWidth < 600) {
         setIsMobile(true);
         setShowSearchBar(false);
       } else {
@@ -109,21 +117,56 @@ export default function Navbar() {
 
       {/* Nav Links */}
       <div className={`nav-links space-x-2 ml-auto ${showSearchBar && isMobile ? 'hidden' : ''}`}>
-        <Link to="/" className="hover:text-blue-400">Home</Link>
-        <Link to="/cart" className="hover:text-blue-400 cart-icon-container">
-          <TiShoppingCart className="cart-icon" />
-          {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
-        </Link>
+        <>
+          <Link to="/cart" className="cart-icon-container">
+            <TiShoppingCart className="cart-icon" />
+          </Link>
+        </>
         {!auth?.user ? (
-                <>
-                  <Link to="/register" className="hover:text-blue-400">Register</Link>
-                  <Link to="/login" className="hover:text-blue-400">Login</Link>
-                </>
-              ) : (
-                <>
-                   <Link onClick={handleLogout} to="/login" className="hover:text-blue-400">Log Out</Link>
-                </>
-              )}
+          <>
+            <Link to="/register" className="hover:text-blue-400">Register</Link>
+            <Link to="/login" className="hover:text-blue-400">Login</Link>
+          </>
+        ) : (
+          <>
+            {/* Added ref={popupState.anchorRef} */}
+            <div
+              {...bindHover(popupState)}
+              style={{ display: "inline-block" }}
+              ref={popupState.anchorRef} // Attach the ref here
+            >
+              <Link className="hover:text-blue-400">{auth.user.name}</Link>
+            </div>
+            {/* Provided anchorEl to Popper and updated styles */}
+            <Popper
+              {...bindPopper(popupState)}
+              anchorEl={popupState.anchorEl} // Explicitly provide anchorEl
+              sx={{ zIndex: 1300 }}
+            >
+              <Box
+                sx={{
+                  bgcolor: 'black', // Changed background color to black
+                  color: 'white',   // Changed text color to white
+                  border: '1px solid gray', // Changed border color for better visibility
+                  width: '200px',
+                  padding: '10px',
+                  borderRadius: '4px', // Optional: Rounded corners for a more polished look
+                }}
+              >
+                <Typography variant="subtitle1">Account Information</Typography>
+                <Typography variant="body2">Name: {auth.user.name}</Typography>
+                <Typography variant="body2">Email: {auth.user.email}</Typography>
+                
+                <ListItemButton component={Link} to="/profile">
+                  My Profile
+                </ListItemButton>
+                <ListItemButton component={Link} to="/" onClick={handleLogout}>
+                  Log Out
+                </ListItemButton>
+              </Box>
+            </Popper>
+          </>
+        )}
       </div>
     </nav>
   );

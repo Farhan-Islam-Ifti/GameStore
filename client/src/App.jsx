@@ -10,7 +10,7 @@ import PaymentPage from './components/PaymentPage';
 import PaymentSuccess from './components/PaymentSuccess';
 import axios from 'axios';
 import { Toaster } from 'react-hot-toast';
-
+import MyProfile from './components/MyProfile'
 axios.defaults.baseURL = 'https://game-store-server-jet.vercel.app';
 axios.defaults.withCredentials = true;
 
@@ -29,7 +29,7 @@ function App() {
         <Route path='/cart' element={<Cart />} />
         <Route path='/payment' element={<PaymentPage />} /> {/* Fixed */}
         <Route path='/payment-success' element={<PaymentSuccess />} />
-       
+        <Route path='/profile' element={<MyProfile />} />
       </Routes>
     </div>
   );

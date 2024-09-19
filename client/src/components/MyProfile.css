@@ -1,0 +1,93 @@
+:root {
+  --bgColor: #1a1a2e;
+  --textColor: #ffffff;
+  --inputBgColor: #16213e;
+  --inputBorderColor: #0f3460;
+  --buttonColor: #e94560;
+}
+
+.profile {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px;
+  border: 8px solid var(--bgColor);
+  background: var(--bgColor);
+  box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.15),
+              5px 5px 15px rgba(0, 0, 0, 0.35),
+              inset -5px -5px 15px rgba(255, 255, 255, 0.15),
+              inset 5px 5px 15px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  overflow: hidden;
+  transition: 0.5s;
+}
+
+.profile-container {
+  background: var(--bgColor); 
+  color: var(--textColor);
+  border-radius: 30px;
+  box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
+              5px 5px 15px rgba(0, 0, 0, 0.35);
+  padding: 20px;
+  width: 100%;
+  max-width: 450px; /* Adjust based on your layout needs */
+  margin: 0 auto; /* Centers the container */
+  box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+}
+
+.profile-input {
+  width: 100%;
+  padding: 10px;
+  color: var(--textColor);
+  background: var(--inputBgColor);
+  border: 2px solid var(--inputBorderColor);
+  border-radius: 10px;
+  margin-bottom: 20px; /* Adds space between inputs */
+  box-sizing: border-box; /* Ensures padding is included in the width */
+}
+
+.profile-label {
+  position: absolute;
+  top: -4px;
+  left: 10px;
+  padding: 10px;
+  color: #e94560;
+  border-radius: 10px;
+  pointer-events: none; /* Ensures the label does not interfere with input focus */
+  transition: transform 0.2s ease, font-size 0.5s ease;
+}
+
+.logout-button {
+  width: 100%;
+  max-width: 200px;
+  background: var(--buttonColor);
+  color: var(--textColor);
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.3s, color 0.3s;
+  box-sizing: border-box; /* Ensures padding is included in the width */
+}
+
+.logout-button:hover {
+  background: var(--textColor);
+  color: var(--buttonColor);
+}
+
+/* Additional styles for label animation */
+.profile-input:focus + .profile-label,
+.profile-input:not(:placeholder-shown) + .profile-label {
+  transform: translateY(-24px) scale(0.75);
+  font-size: 15px;
+}
+@media (max-width: 500px) {
+  .profile-label{
+    left: 12px;
+  }
+}

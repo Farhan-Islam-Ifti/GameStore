@@ -6,7 +6,12 @@ export default function CategoryPage() {
     <div>
       <h1>Category Page</h1>
       <p>This is the content for the Category page.</p>
-      <pre>{JSON.stringify(auth, null, 4)}</pre>
+      <div>
+        <h2>User Information</h2>
+        <p><strong>Name:</strong> {auth?.name || 'N/A'}</p>
+        <p><strong>Email:</strong> {auth?.email || 'N/A'}</p>
+        {/* Avoid displaying the password */}
+      </div>
     </div>
   );
 }

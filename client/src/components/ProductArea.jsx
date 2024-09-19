@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import './ProductArea.css'
+import { Link } from 'react-router-dom';
 import { FaArrowRight } from "react-icons/fa";
 import { useAuth } from '../context/auth.jsx'; // Adjust the path to where your AuthProvider is located
 import { toast } from 'react-hot-toast';
@@ -34,7 +35,7 @@ const ProductArea = () => {
   const addToCart = (game) => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     const existingItem = cart.find(item => item.id === game._id);
-   
+
     if (existingItem) {
       existingItem.quantity += 1;
     } else {
@@ -46,7 +47,7 @@ const ProductArea = () => {
         quantity: 1
       });
     }
-   
+
     localStorage.setItem("cart", JSON.stringify(cart));
     showNotification(`${game.title} added to cart!`);
   };
@@ -78,9 +79,9 @@ const ProductArea = () => {
       )}
       <div className="promotion-container">
         <h3 className="sectionTitle">Games on Promotion</h3>
-        <a href="#" className="viewMore" onClick={(e) => e.preventDefault()}>
+        <Link to="/category" className="viewMore">
           View more games <FaArrowRight className="icon" />
-        </a>
+        </Link>
       </div>
       <div className="game-grid">
         {games.map((game) => (
@@ -88,7 +89,7 @@ const ProductArea = () => {
             <img
               src={getImageSrc(game)}
               alt={game.title}
-              onError={(e) => {e.target.onerror = null; e.target.src = 'default-image.jpg';}}
+              onError={(e) => { e.target.onerror = null; e.target.src = 'default-image.jpg'; }}
             />
             <h3>{game.title}</h3>
             <p className="genre">{game.genre}</p>
