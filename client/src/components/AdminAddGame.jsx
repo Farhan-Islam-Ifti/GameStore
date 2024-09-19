@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
+import { FaUpload } from 'react-icons/fa';
 import './AdminAddGames.css';
 
 const AdminAddGame = () => {
@@ -29,19 +30,36 @@ const AdminAddGame = () => {
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
     if (name === 'platform' || name === 'tags') {
-      setGame(prevGame => ({ ...prevGame, [name]: value.split(',').map(item => item.trim()) }));
+      setGame(prevGame => ({
+        ...prevGame,
+        [name]: value.split(',').map(item => item.trim())
+      }));
     } else if (type === 'checkbox') {
-      setGame(prevGame => ({ ...prevGame, [name]: checked }));
+      setGame(prevGame => ({
+        ...prevGame,
+        [name]: checked
+      }));
     } else if (type === 'file') {
       if (files && files[0]) {
-        setGame(prevGame => ({ ...prevGame, imageFile: files[0], imageUrl: '' }));
+        setGame(prevGame => ({
+          ...prevGame,
+          imageFile: files[0],
+          imageUrl: ''
+        }));
         setPreviewImage(URL.createObjectURL(files[0]));
       }
     } else if (name === 'imageUrl') {
-      setGame(prevGame => ({ ...prevGame, imageUrl: value, imageFile: null }));
+      setGame(prevGame => ({
+        ...prevGame,
+        imageUrl: value,
+        imageFile: null
+      }));
       setPreviewImage(value);
     } else {
-      setGame(prevGame => ({ ...prevGame, [name]: value }));
+      setGame(prevGame => ({
+        ...prevGame,
+        [name]: value
+      }));
     }
   };
 
@@ -52,7 +70,7 @@ const AdminAddGame = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage('');
-    
+
     try {
       const formData = new FormData();
       Object.keys(game).forEach(key => {
@@ -67,11 +85,10 @@ const AdminAddGame = () => {
         }
       });
 
-      // Make API call
       const response = await axios.post('https://game-store-server-jet.vercel.app/api/v1/games', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       });
 
       if (response.status === 201) {
@@ -264,7 +281,7 @@ const AdminAddGame = () => {
           </div>
 
           {isUpload ? (
-            <>
+            <div className="file-input-wrapper">
               <input
                 type="file"
                 ref={fileInputRef}
@@ -273,9 +290,9 @@ const AdminAddGame = () => {
                 style={{ display: 'none' }}
               />
               <button type="button" onClick={handleUploadClick} className="file-input-label">
-                Choose File
+                <FaUpload /> Choose File
               </button>
-            </>
+            </div>
           ) : (
             <input
               type="url"
@@ -283,6 +300,7 @@ const AdminAddGame = () => {
               value={game.imageUrl}
               onChange={handleChange}
               placeholder="Image URL"
+              className="image-url-input"
             />
           )}
 
@@ -293,7 +311,7 @@ const AdminAddGame = () => {
           )}
         </div>
 
-        <button type="submit">Add Game</button>
+        <button type="submit" className="submit-button">Add Game</button>
       </form>
       {message && <p className="message">{message}</p>}
     </div>

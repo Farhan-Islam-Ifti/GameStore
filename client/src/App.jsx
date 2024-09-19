@@ -6,6 +6,8 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Cart from './components/CartPage';
+import PaymentPage from './components/PaymentPage';
+import PaymentSuccess from './components/PaymentSuccess';
 import axios from 'axios';
 import { Toaster } from 'react-hot-toast';
 
@@ -25,6 +27,9 @@ function App() {
         <Route path='/login' element={<div className="background-image"><Login /></div>} />
         {isUserSignedIn && <Route path='/account' element={<Account />} />}
         <Route path='/cart' element={<Cart />} />
+        <Route path='/payment' element={<PaymentPage />} /> {/* Fixed */}
+        <Route path='/payment-success' element={<PaymentSuccess />} />
+       
       </Routes>
     </div>
   );

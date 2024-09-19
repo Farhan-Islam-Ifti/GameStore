@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CartPage.css';
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
   const [total, setTotal] = useState(0);
   const [notification, setNotification] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadCart = () => {
@@ -54,7 +56,10 @@ const CartPage = () => {
     setNotification(message);
     setTimeout(() => setNotification(null), 3000);
   };
-
+  const handleProceedToCheckout = () => {
+    // Redirect to payment page
+    navigate('/payment'); // Replace with your actual payment route
+  };
   return (
     <div className="cart-page">
       {/* Side Menu */}
@@ -105,7 +110,7 @@ const CartPage = () => {
                 Total: ${total.toFixed(2)}
               </div>
             </div>
-            <button className="checkout-btn">
+            <button className="checkout-btn" onClick={handleProceedToCheckout}> {/* Add onClick handler */}
               Proceed to Checkout
             </button>
           </>

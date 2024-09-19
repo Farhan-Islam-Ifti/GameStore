@@ -15,14 +15,28 @@ const gameSchema = new mongoose.Schema({
         required: true,
         min: 0
     },
-    imageFileName: {
+    image: {
+        data: Buffer,
+        contentType: String
+      },
+    
+      // Image filename if uploaded
+      imageFileName: {
         type: String,
-        required: function() { return !this.imageUrl; }
-    },
-    imageUrl: {
+        required: function() {
+          // Required if imageUrl is not provided
+          return !this.imageUrl && !this.image.data;
+        }
+      },
+    
+      // Image URL if using an external URL
+      imageUrl: {
         type: String,
-        required: function() { return !this.imageFileName; }
-    },
+        required: function() {
+          // Required if imageFileName or image (binary) is not provided
+          return !this.imageFileName && !this.image.data;
+        }
+      },
     genre: {
         type: String,
         required: true

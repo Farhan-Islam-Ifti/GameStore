@@ -1,0 +1,131 @@
+:root {
+    --bgColor: #1a1a2e;
+    --textColor: #ffffff;
+    --inputBgColor: #16213e;
+    --inputBorderColor: #0f3460;
+    --buttonColor: #e94560;
+  }
+  
+  /* General page layout */
+  .payment-container {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+    border: 8px solid var(--bgColor);
+    background-color: var(--bgColor);
+    box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.15),
+                5px 5px 15px rgba(0, 0, 0, 0.35),
+                inset -5px -5px 15px rgba(255, 255, 255, 0.15),
+                inset 5px 5px 15px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    overflow: hidden;
+    transition: 0.5s;
+  }
+  
+  /* Header for the payment page */
+  .payment-header {
+    font-size: 2rem;
+    color: var(--textColor);
+    margin-bottom: 20px;
+  }
+  
+  /* Payment form layout */
+  .payment-form {
+    width: 100%;
+    max-width: 600px;
+    background-color: var(--inputBgColor);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
+                5px 5px 15px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .payment-form label {
+    color: var(--textColor);
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+  }
+  
+  .payment-form input,
+  .payment-form select {
+    background-color: var(--inputBgColor);
+    color: var(--textColor);
+    border: 2px solid var(--inputBorderColor);
+    padding: 10px;
+    border-radius: 10px;
+    transition: border 0.3s;
+  }
+  
+  .payment-form input:focus,
+  .payment-form select:focus {
+    border-color: var(--buttonColor);
+    outline: none;
+  }
+  
+  /* Submit button */
+  .payment-form button {
+    background-color: var(--buttonColor);
+    color: var(--textColor);
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: inset -2px -2px 6px rgba(255, 255, 255, 0.1),
+                inset 2px 2px 6px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s, transform 0.1s;
+  }
+  
+  .payment-form button:hover {
+    background-color: #ff597a;
+    transform: scale(1.05);
+  }
+  
+  /* Responsive adjustments */
+  @media screen and (max-width: 768px) {
+    .payment-container {
+      padding: 10px;
+    }
+  
+    .payment-form {
+      max-width: 100%;
+    }
+  
+    .payment-header {
+      font-size: 1.5rem;
+    }
+  }
+  
+  /* Notification section */
+  .payment-notification {
+    background-color: var(--inputBgColor);
+    color: var(--textColor);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
+                5px 5px 15px rgba(0, 0, 0, 0.35);
+  }
+  
+  /* Footer style for consistency */
+  .footer {
+    text-align: center;
+    padding: 10px;
+    background-color: var(--inputBgColor);
+    color: var(--textColor);
+    border-radius: 20px;
+    box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
+                5px 5px 15px rgba(0, 0, 0, 0.35);
+    margin-top: auto;
+  }
+  

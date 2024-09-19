@@ -18,36 +18,41 @@ export default function Login() {
     e.preventDefault();
     const { email, password } = data;
     setLoading(true); // Start loading
-
     try {
       // Send login request to the backend
       const response = await axios.post('/login', {
         email,
         password
       });
-      
+     
       // Check if the backend returned an error
       if (response.data.error) {
         toast.error(response.data.error);
       } else {
         // Reset form data
         setData({ email: '', password: '' });
-        
+       
         // Display success message
         toast.success('Login Successful. Welcome!');
+
+        // Extract user, token, and cart from the response
+        const { user, accessToken, cart } = response.data;
 
         // Update auth context with user data and token
         setAuth({
           ...auth,
-          user: response.data.user, // Store user data
-          token: response.data.accessToken // Store access token
+          user: user,
+          token: accessToken
         });
-      
-        // Store user and token in localStorage
+     
+        // Store user, token, and cart in localStorage
         localStorage.setItem("auth", JSON.stringify({
-          user: response.data.user,
-          token: response.data.accessToken
+          user: user,
+          token: accessToken
         }));
+
+        // Store cart in localStorage
+        localStorage.setItem("cart", JSON.stringify(cart || []));
 
         // Navigate to the home page or any protected route
         navigate('/');
@@ -62,7 +67,7 @@ export default function Login() {
     } finally {
       setLoading(false); // Stop loading
     }
-  };
+  };;
 
   return (
     <div className="background-image flex items-center justify-center w-full h-full">

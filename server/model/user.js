@@ -1,16 +1,27 @@
-const mongoose= require('mongoose')
-const {Schema}= mongoose
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
-const userSchema =new Schema({
-    name: String,
-    email:{
-        type: String,
-        unique: true
-    },
-    password: String,
+// Define the cart schema separately
+const cartItemSchema = new Schema({
+  id: String,
+  title: String,
+  price: Number,
+  quantity: Number,
+  imageUrl: String
+});
 
-})
+// Define the user schema
+const userSchema = new Schema({
+  name: String,
+  email: {
+    type: String,
+    unique: true
+  },
+  password: String,
+  cart: [cartItemSchema] // Adding cart as an array of cart items
+});
 
-const UserModel =mongoose.model('User', userSchema);
+// Create the User model
+const UserModel = mongoose.model('User', userSchema);
 
 module.exports = UserModel;

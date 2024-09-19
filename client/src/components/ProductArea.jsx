@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./ProductArea.css";
+import './ProductArea.css'
 import { FaArrowRight } from "react-icons/fa";
 
 const CustomAlert = ({ message, onClose }) => (
   <div className="custom-alert">
-    <span className="cart-icon">&#128722;</span> {/* Unicode cart icon */}
+    <span className="cart-icon">&#128722;</span>
     {message}
     <button onClick={onClose}>×</button>
   </div>
@@ -30,7 +30,7 @@ const ProductArea = () => {
   const addToCart = (game) => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     const existingItem = cart.find(item => item.id === game._id);
-    
+   
     if (existingItem) {
       existingItem.quantity += 1;
     } else {
@@ -38,14 +38,11 @@ const ProductArea = () => {
         id: game._id,
         title: game.title,
         price: game.price,
-        imageUrl: game.imageUrl || 
-                  (game.imageFileName ? 
-                   `https://game-store-server-jet.vercel.app/uploads/${game.imageFileName}` : 
-                   'default-image.jpg'),
+        imageUrl: getImageSrc(game),
         quantity: 1
       });
     }
-    
+   
     localStorage.setItem("cart", JSON.stringify(cart));
     showNotification(`${game.title} added to cart!`);
   };
@@ -55,13 +52,24 @@ const ProductArea = () => {
     setTimeout(() => setNotification(null), 3000);
   };
 
+  const getImageSrc = (game) => {
+    if (game.imageUrl) {
+      return game.imageUrl;
+    } else if (game._id) {
+      // Use the game ID to construct the image URL for buffer images
+      return `/api/v1/images/${game._id}`;
+    } else {
+      return 'default-image.jpg';
+    }
+  };
+
   return (
     <div className="product-area">
       <h2>Featured Games</h2>
       {notification && (
-        <CustomAlert 
-          message={notification} 
-          onClose={() => setNotification(null)} 
+        <CustomAlert
+          message={notification}
+          onClose={() => setNotification(null)}
         />
       )}
       <div className="promotion-container">
@@ -74,12 +82,7 @@ const ProductArea = () => {
         {games.map((game) => (
           <div key={game._id} className="game-card">
             <img
-              src={
-                game.imageUrl ||
-                (game.imageFileName
-                  ? `https://game-store-server-jet.vercel.app/uploads/${game.imageFileName}`
-                  : 'default-image.jpg')
-              }
+              src={getImageSrc(game)}
               alt={game.title}
               onError={(e) => {e.target.onerror = null; e.target.src = 'default-image.jpg';}}
             />

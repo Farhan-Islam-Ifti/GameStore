@@ -61,38 +61,32 @@ const registerUser = async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
     try {
         const { email, password } = req.body;
-
         // Check if email and password are provided
         if (!email || !password) {
             return res.status(400).json({ message: 'All fields are required' });
         }
-
         // Find the user by email
         const user = await User.findOne({ email }).exec();
         if (!user) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
-
         // Compare passwords
         const match = await comparePassword(password, user.password);
         if (!match) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
-
         // Generate access token
         const accessToken = jwt.sign(
             { "UserInfo": { "email": user.email } },
             process.env.ACCESS_TOKEN_SECRET,
             { expiresIn: '15m' } // Token expires in 15 minutes
         );
-
         // Generate refresh token
         const refreshToken = jwt.sign(
             { "email": user.email },
             process.env.REFRESH_TOKEN_SECRET,
             { expiresIn: '7d' } // Refresh token expires in 7 days
         );
-
         // Store refresh token in HTTP-only cookie
         res.cookie('jwt', refreshToken, {
             httpOnly: true,
@@ -101,16 +95,19 @@ const loginUser = asyncHandler(async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
         });
 
-        // Return access token and user info in response
+        // Fetch the user's cart
+        const userWithCart = await User.findById(user._id).select('cart').lean();
+
+        // Return access token, user info, and cart in response
         res.json({
             user: {
                 id: user._id,
-                name: user.name,   // Include the name
+                name: user.name,
                 email: user.email
             },
-            accessToken: accessToken
+            accessToken: accessToken,
+            cart: userWithCart.cart || []
         });
-
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: 'Internal server error' });
