@@ -51,7 +51,7 @@ app.use('/category',categoryRoutes);
 app.use('/api/v1', gameRoutes);
 app.use('/api/v1',paymentRoutes);
 app.use('/api/v1', cartRoutes);
-//app.use('/api/v1', ); // Use image routes
+app.use('/api/v1',imageRoutes); // Use image routes
 
 //app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
