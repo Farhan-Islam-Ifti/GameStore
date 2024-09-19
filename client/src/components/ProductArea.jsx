@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import './ProductArea.css'
 import { FaArrowRight } from "react-icons/fa";
-import { useAuth } from '../context/auth'; // Adjust the path to where your AuthProvider is located
+import { useAuth } from '../context/auth.jsx'; // Adjust the path to where your AuthProvider is located
 import { toast } from 'react-hot-toast';
 
 const CustomAlert = ({ message, onClose }) => (
