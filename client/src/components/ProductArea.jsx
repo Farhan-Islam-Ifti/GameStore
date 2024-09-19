@@ -29,32 +29,32 @@ const ProductArea = () => {
     fetchGames();
   }, []);
 
-const addToCart = (game) => {
   const [auth] = useAuth(); // Access the auth state
 
-  if (!auth.user) {
-    toast.error('You need to be logged in to add items to the cart.'); // Show toast notification for login requirement
-    return;
-  }
+  const addToCart = () => {
+    if (!auth.user) {
+      toast.error('You need to be logged in to add items to the cart.'); // Show toast notification for login requirement
+      return;
+    }
 
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  const existingItem = cart.find(item => item.id === game._id);
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const existingItem = cart.find(item => item.id === game._id);
 
-  if (existingItem) {
-    existingItem.quantity += 1;
-  } else {
-    cart.push({
-      id: game._id,
-      title: game.title,
-      price: game.price,
-      imageUrl: getImageSrc(game),
-      quantity: 1
-    });
-  }
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      cart.push({
+        id: game._id,
+        title: game.title,
+        price: game.price,
+        imageUrl: getImageSrc(game),
+        quantity: 1
+      });
+    }
 
-  localStorage.setItem('cart', JSON.stringify(cart));
-  toast.success(`${game.title} added to cart!`); // Show success notification when item is added to cart
-};
+    localStorage.setItem('cart', JSON.stringify(cart));
+    toast.success(`${game.title} added to cart!`); // Show success notification when item is added to cart
+  };
 
   const showNotification = (message) => {
     setNotification(message);
