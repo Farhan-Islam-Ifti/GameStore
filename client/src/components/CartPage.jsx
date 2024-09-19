@@ -63,11 +63,7 @@ const CartPage = () => {
   return (
     <div className="cart-page">
       {/* Side Menu */}
-      <div className="sidemenu">
-        <h2>Side Menu</h2>
-        {/* Add side menu content here */}
-      </div>
-
+      
       <div className="cart-container">
         <h1>Your Cart</h1>
         {notification && (

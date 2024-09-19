@@ -16,6 +16,7 @@ const CustomAlert = ({ message, onClose }) => (
 
 const ProductArea = () => {
   const [games, setGames] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const [notification, setNotification] = useState(null);
 
   useEffect(() => {
@@ -29,7 +30,13 @@ const ProductArea = () => {
     };
     fetchGames();
   }, []);
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
+  const filteredGames = games.filter((game) =>
+    game.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
 
   const addToCart = (game) => {
@@ -62,7 +69,7 @@ const ProductArea = () => {
       return game.imageUrl;
     } else if (game._id) {
       // Use the game ID to construct the image URL for buffer images
-      return `/api/v1/images/${game._id}`;
+      return '/api/v1/images/${game._id}';
     } else {
       return 'default-image.jpg';
     }
@@ -83,8 +90,17 @@ const ProductArea = () => {
           View more games <FaArrowRight className="icon" />
         </Link>
       </div>
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Search games..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+          className="search-input"
+        />
+      </div>
       <div className="game-grid">
-        {games.map((game) => (
+        {filteredGames.map((game) => (
           <div key={game._id} className="game-card">
             <img
               src={getImageSrc(game)}

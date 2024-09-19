@@ -49,6 +49,38 @@
   .viewMore:hover {
     color: #91bbb0; /* Change color on hover */
   }
+/* Search Container */
+.search-container {
+    position: relative;
+    display: flex;
+    margin-left: 80%;
+    justify-content: flex-end; /* Aligns the search bar to the right */
+    margin-bottom: 20px; /* Space between search bar and game grid */
+  }
+  
+  /* Search Input */
+  .search-input {
+    width: 300px; /* Adjust the width as needed */
+    padding: 8px 15px;
+    border: 2px solid #0ef;
+    border-radius: 25px;
+    background-color: #1a1a1a;
+    color: #fff;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    outline: none;
+  }
+  
+  .search-input::placeholder {
+    color: #777;
+  }
+  
+  .search-input:focus {
+    border-color: #0ef;
+    box-shadow: 0 0 8px rgba(14, 239, 255, 0.6);
+  }
+
+
+
 .game-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));

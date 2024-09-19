@@ -68,55 +68,6 @@
   margin-left: auto;
 }
 
-/* Search Bar and Icon */
-.search-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  flex-grow: 1;
-  max-width: 400px;
-  margin-left: 1rem;
-}
-
-.search-bar {
-  width: 100%;
-  padding: 8px 15px;
-  padding-right: 40px;
-  border: 2px solid #0ef;
-  border-radius: 25px;
-  background-color: #1a1a1a;
-  color: #fff;
-  transition: border-color 0.3s, box-shadow 0.3s;
-  outline: none;
-}
-
-.search-bar::placeholder {
-  color: #777;
-}
-
-.search-bar:focus {
-  border-color: #0ef;
-  box-shadow: 0 0 8px rgba(14, 239, 255, 0.6);
-}
-
-.search-icon-container {
-  position: absolute;
-  right: 10px;
-  background-color: #000000;
-  padding: 5px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-}
-
-.search-icon {
-  color: #fff;
-  font-size: 1.5rem;
-}
-
 /* Cart Icon Container */
 .cart-icon-container {
   position: relative;

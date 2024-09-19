@@ -91,30 +91,11 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const toggleSearchBar = () => {
-    setShowSearchBar(!showSearchBar);
-  };
-
   return (
     <nav className="navbar">
       <Link to="/" className="text-2xl font-bold navbar-title">
         Gamerz Arena
       </Link>
-
-      {/* Search Bar with icon */}
-      <div className={`search-container ${isMobile ? 'search-mobile' : ''}`}>
-        {(showSearchBar || !isMobile) && (
-          <input
-            type="text"
-            placeholder="Search games..."
-            className={`search-bar ${showSearchBar ? 'visible' : ''}`}
-          />
-        )}
-        <div className="search-icon-container" onClick={toggleSearchBar}>
-          <IoSearchCircleSharp className="search-icon" />
-        </div>
-      </div>
-
       {/* Nav Links */}
       <div className={`nav-links space-x-2 ml-auto ${showSearchBar && isMobile ? 'hidden' : ''}`}>
         <>

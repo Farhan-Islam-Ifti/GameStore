@@ -21,14 +21,6 @@
     overflow: hidden;
 }
 
-.sidemenu {
-    width: 20%;
-    background-color: var(--inputBgColor);
-    color: var(--textColor);
-    padding: 20px;
-    border-right: 2px solid var(--inputBorderColor);
-}
-
 .cart-container {
     flex-grow: 1;
     height: 100%;
@@ -164,11 +156,11 @@
 }
 
 .clear-cart-btn {
-    background-color: var(--inputBorderColor);
+    background-color: rgb(106, 178, 180);
     color: var(--textColor);
     border: none;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 20px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
@@ -187,7 +179,7 @@
     color: var(--textColor);
     border: none;
     padding: 15px 30px;
-    border-radius: 5px;
+    border-radius: 25px;
     font-size: 18px;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -196,5 +188,6 @@
 }
 
 .checkout-btn:hover {
-    background-color: #ff6b6b;
+    background-color: #238649;
+    color: #251c12;
 }

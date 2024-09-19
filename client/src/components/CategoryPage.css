@@ -1,0 +1,51 @@
+/* Container for the genre filter */
+.genre-filter {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 20px 0;
+    gap: 10px;
+  }
+  /* Dropdown select box styling */
+  .genre-filter select {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid #0ef;
+    border-radius: 20px;
+    background-color: #dfd0d0;
+    color: #333;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  
+  /* Dropdown focus and hover states */
+  .genre-filter select:focus,
+  .genre-filter select:hover {
+    border-color: #43887f;
+    background-color: #caa7c1;
+  }
+  
+  /* Customize appearance of the dropdown arrow */
+  .genre-filter select::after {
+    content: '▼';
+    font-size: 12px;
+    margin-left: 10px;
+    position: relative;
+    top: -2px;
+  }
+  
+  /* Style the dropdown options */
+  .genre-filter select option {
+    padding: 10px;
+    background-color: #3e3f2f;
+    color: #0ef;
+  }
+  
+  /* Dropdown container for responsiveness */
+  @media (max-width: 768px) {
+    .genre-filter {
+      justify-content: center;
+    }
+  }
+  
