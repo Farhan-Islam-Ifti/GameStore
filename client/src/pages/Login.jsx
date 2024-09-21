@@ -14,11 +14,13 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [auth, setAuth] = useAuth(); // Custom hook to manage auth context
 
-  const loginUser = async (e) => {
+ const loginUser = async (e) => {
     e.preventDefault();
     const { email, password,} = data;
     setLoading(true); // Start loading
-    const response = await axios.post('/login', {
+    try {
+      // Send login request to the backend
+      const response = await axios.post('/login', {
         email,
         password,
       });
