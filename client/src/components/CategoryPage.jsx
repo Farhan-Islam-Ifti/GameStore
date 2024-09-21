@@ -3,14 +3,12 @@ import axios from "axios";
 import './CategoryPage.css';
 import GameRating from './GameRating';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../context/auth.jsx'; // Adjust the path if needed
-import { toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast'; // Import react-hot-toast
 
 const CategoryPage = () => {
   const [games, setGames] = useState([]);
   const [genres, setGenres] = useState(['Genre: All']);
   const [selectedGenre, setSelectedGenre] = useState('Genre: All');
-  const [notification, setNotification] = useState(null);
 
   // Fetch games
   useEffect(() => {
@@ -48,12 +46,9 @@ const CategoryPage = () => {
     }
 
     localStorage.setItem("cart", JSON.stringify(cart));
-    showNotification(`${game.title} added to cart!`);
-  };
 
-  const showNotification = (message) => {
-    setNotification(message);
-    setTimeout(() => setNotification(null), 3000);
+    // Use react-hot-toast to display success message
+    toast.success(`${game.title} added to cart!`);
   };
 
   const getImageSrc = (game) => {
@@ -73,14 +68,6 @@ const CategoryPage = () => {
 
   return (
     <div className="category-page">
-      {notification && (
-        <div className="custom-alert">
-          <span className="cart-icon">&#128722;</span>
-          {notification}
-          <button onClick={() => setNotification(null)}>×</button>
-        </div>
-      )}
-
       {/* Genre Dropdown */}
       <div className="genre-filter">
         <select 
@@ -97,39 +84,39 @@ const CategoryPage = () => {
       </div>
 
       <div className="game-grid">
-      {filteredGames.map((game) => (
+        {filteredGames.map((game) => (
           <Link to={`/games/${game._id}`} key={game._id} className="gameCard">
-          <img
-            src={getImageSrc(game)}
-            alt={game.title}
-            onError={(e) => { e.target.onerror = null; e.target.src = 'default-image.jpg'; }}
-          />
-          <div className="gameFeature">
-            <span className="gameType">{game.genre}</span>
-            <GameRating rating={game.rating} />
-          </div>
-          <div className="gameTitle mt-4 mb-3">{game.title}</div>
-          <div className="gamePrice">
-            {game.discountPercentage > 0 && (
-              <>
-                <span className="discount">
-                  {game.discountPercentage}% OFF
-                </span>
-                <span className="prevPrice">৳{game.price.toFixed(2)}</span>
-              </>
-            )}
-            <span className="currentPrice">
-            ৳{(game.price - (game.price * game.discountPercentage / 100)).toFixed(2)}
-            </span>
-          </div>
-          <button onClick={(e) => {
-             e.preventDefault();
-            e.stopPropagation(); // Prevent Link from triggering
-            addToCart(game);
-          }}>
-            Add to Cart
-          </button>
-        </Link>
+            <img
+              src={getImageSrc(game)}
+              alt={game.title}
+              onError={(e) => { e.target.onerror = null; e.target.src = 'default-image.jpg'; }}
+            />
+            <div className="gameFeature">
+              <span className="gameType">{game.genre}</span>
+              <GameRating rating={game.rating} />
+            </div>
+            <div className="gameTitle mt-4 mb-3">{game.title}</div>
+            <div className="gamePrice">
+              {game.discountPercentage > 0 && (
+                <>
+                  <span className="discount">
+                    {game.discountPercentage}% OFF
+                  </span>
+                  <span className="prevPrice">৳{game.price.toFixed(2)}</span>
+                </>
+              )}
+              <span className="currentPrice">
+                ৳{(game.price - (game.price * game.discountPercentage / 100)).toFixed(2)}
+              </span>
+            </div>
+            <button onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation(); // Prevent Link from triggering
+              addToCart(game);
+            }}>
+              Add to Cart
+            </button>
+          </Link>
         ))}
       </div>
     </div>
