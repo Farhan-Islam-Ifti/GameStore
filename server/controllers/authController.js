@@ -68,8 +68,9 @@ const loginUser = asyncHandler(async (req, res) => {
             { expiresIn: '7d' }
         );
         res.cookie('jwt', refreshToken, {
+            secure: true,
             httpOnly: true,
-             secure: process.env.NODE_ENV == 'production',
+            // secure: process.env.NODE_ENV == 'production',
             sameSite: 'None',
             maxAge: 7 * 24 * 60 * 60 * 1000
         });
