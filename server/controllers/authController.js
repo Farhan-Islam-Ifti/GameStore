@@ -75,7 +75,8 @@ const loginUser = asyncHandler(async (req, res) => {
             partitioned: true
            // domain: '.https://game-store-client.vercel.app'
         });
-        const userWithCart = await User.findById(user._id).select('cart orders').lean();
+        const userWithCart = await User.findById(user._id).select('cart').lean();
+        const userWithCarts = await User.findById(user._id).select('orders').lean();
         res.json({
             user: {
                 id: user._id,
@@ -83,9 +84,10 @@ const loginUser = asyncHandler(async (req, res) => {
                 email: user.email,
                 isAdmin: user.isAdmin
             },
-            accessToken: accessToken,
+            token: accessToken,
+            refreshToken: refreshToken,
             cart: userWithCart.cart || [],
-            orders: userWithCart.orders || [],
+            orders: userWithCarts.orders || [],
         });
     } catch (error) {
         console.error(error);
@@ -126,15 +128,18 @@ const refresh = asyncHandler(async (req, res) => {
 const logout = (req, res) => {
     const cookies = req.cookies;
     if (!cookies?.jwt) return res.sendStatus(204);
-    res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
+    res.clearCookie('jwt', {  httpOnly: true,
+        secure: true, // Always use secure in production
+        sameSite: 'None', // Required for cross-origin cookies
+       // maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+        partitioned: true });
     res.json({ message: 'Cookie cleared' });
 };
-
 
 module.exports = {
     test,
     registerUser,
     loginUser,
      refresh,
-    logout,
+     logout,
 };

@@ -24,7 +24,6 @@ export default function Navbar() {
       // Get the current cart from localStorage
       const currentCart = JSON.parse(localStorage.getItem('cart')) || [];
       const productHistory = JSON.parse(localStorage.getItem('orders')) || [];
-      //console.log(currentCart);
   
       // Send the cart to the server to be saved
       await axios.post('/api/v1/cart/sync', { cart: currentCart }, {
@@ -37,6 +36,12 @@ export default function Navbar() {
           Authorization: `Bearer ${auth.token}`
         }
       });
+      await axios.post('/logout', {}, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`
+        }
+      });
+  
       // Clear auth state
       setAuth({
         ...auth,
@@ -45,10 +50,15 @@ export default function Navbar() {
       });
   
       // Clear localStorage
-      localStorage.removeItem("auth");
-      localStorage.removeItem("cart");
-      localStorage.removeItem("orders");
+      localStorage.clear();
+  
+      // Clear sessionStorage
+      sessionStorage.clear();
+  
+      // Clear cookies
+      
       toast.success("Logout Successful");
+  
     } catch (error) {
       console.error('Error during logout:', error);
       toast.error("An error occurred while logging out. Your cart may not have been saved.");
@@ -59,9 +69,12 @@ export default function Navbar() {
         user: null,
         token: null,
       });
-      localStorage.removeItem("auth");
-      localStorage.removeItem("cart");
-      localStorage.removeItem("orders");
+  
+      // Clear storage and cookies again in case of error
+      localStorage.clear();
+      sessionStorage.clear();
+  
+    
     }
   };
   useEffect(() => {

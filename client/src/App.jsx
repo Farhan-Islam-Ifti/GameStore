@@ -12,6 +12,8 @@ import axios from 'axios';
 import { Toaster } from 'react-hot-toast';
 import MyProfile from './components/MyProfile'
 import ProductDetails from './components/ProductDetails';
+import { PrivateRoute } from './context/auths';
+
 axios.defaults.baseURL = 'https://game-store-server-jet.vercel.app';
 axios.defaults.withCredentials = true;
 
@@ -27,11 +29,11 @@ function App() {
         <Route path='/register' element={<div className="background-image"><Register /></div>} />
         <Route path='/login' element={<div className="background-image"><Login /></div>} />
         {isUserSignedIn && <Route path='/account' element={<Account />} />}
-        <Route path='/cart' element={<Cart />} />
-        <Route path='/payment' element={<PaymentPage />} /> {/* Fixed */}
-        <Route path='/payment-success' element={<PaymentSuccess />} />
-        <Route path='/profile' element={<MyProfile />} />
-        <Route path="/games/:id" element={<ProductDetails />} />
+        <Route path='/cart' element={ <PrivateRoute><Cart /></PrivateRoute>} />
+        <Route path='/payment' element={<PrivateRoute><PaymentPage /></PrivateRoute>} /> {/* Fixed */}
+        <Route path='/payment-success' element={<PrivateRoute><PaymentSuccess /></PrivateRoute>} />
+        <Route path='/profile' element={<PrivateRoute><MyProfile /></PrivateRoute>} />
+        <Route path="/games/:id" element={<PrivateRoute><ProductDetails /></PrivateRoute>} />
       </Routes>
     </div>
   );

@@ -81,7 +81,7 @@ const CartPage = () => {
                   <img src={item.imageUrl} alt={item.title} />
                   <div className="item-details">
                     <h3>{item.title}</h3>
-                    <p className="price">${item.price.toFixed(2)}</p>
+                    <p className="price">${Math.round(item.price)}</p>
                   </div>
                   <div className="quantity-controls">
                     <button onClick={() => updateQuantity(item.id, -1)} className="quantity-btn">
@@ -103,7 +103,7 @@ const CartPage = () => {
                 Clear Cart
               </button>
               <div className="total">
-                Total: ${total.toFixed(2)}
+                Total: ${Math.round(total)}
               </div>
             </div>
             <button className="checkout-btn" onClick={handleProceedToCheckout}> {/* Add onClick handler */}

@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../model/user'); // Adjust the path as needed
-const authMiddleware = require('../middlewares/verifyJWT'); // Your authentication middleware
+const {authMiddleware} = require('../middlewares/verifyJWT'); // Your authentication middleware
 
 // Sync product history to the database
 router.post('/history/sync', authMiddleware, async (req, res) => {
   try {
-    console.log('History sync route hit');
+    //console.log('History sync route hit');
     const { orders } = req.body;
     const userId = req.user.id; // Assuming your auth middleware attaches the user to the request
 
@@ -22,7 +22,7 @@ router.post('/history/sync', authMiddleware, async (req, res) => {
 });
 
 // Retrieve product history from the database
-router.get('/history', authMiddleware, async (req, res) => {
+/*router.get('/history', authMiddleware, async (req, res) => {
   try {
     const userId = req.user.id; // Should be set by authMiddleware
     
@@ -38,6 +38,6 @@ router.get('/history', authMiddleware, async (req, res) => {
     console.error('Error retrieving product history:', error);
     res.status(500).json({ error: 'An error occurred while retrieving the product history' });
   }
-});
+});*/
 
 module.exports = router;
