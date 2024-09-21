@@ -40,21 +40,18 @@ export default function Login() {
         const { user, accessToken, cart } = response.data;
 
         // Update auth context with user data and token
-        setAuth({
+         setAuth({
           ...auth,
-          user: {
-              ...user, // Spread user to include isAdmin
-          },
+          user: user,
           token: accessToken
-      });
+        });
+     
      
         // Store user, token, and cart in localStorage
-        localStorage.setItem("auth", JSON.stringify({
-          user: {
-              ...user, // Ensure isAdmin is included here
-          },
+         localStorage.setItem("auth", JSON.stringify({
+          user: user,
           token: accessToken
-      }));
+        }));
 
         // Store cart in localStorage
         localStorage.setItem("cart", JSON.stringify(cart || []));
