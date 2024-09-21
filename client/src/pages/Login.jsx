@@ -23,6 +23,7 @@ export default function Login() {
       const response = await axios.post('/login', {
         email,
         password,
+       withCredentials: true, 
       });
      
       // Check if the backend returned an error
