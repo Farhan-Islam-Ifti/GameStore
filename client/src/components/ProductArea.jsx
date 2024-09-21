@@ -103,83 +103,98 @@ const ProductArea = () => {
     arrows: true
   };
   return (
-    <div className="product-area">
-      <h2>Games on Promotion</h2>
-      {/* Carousel for games with discount */}
-      <div className="carousel-container">
-        <Slider {...sliderSettings}>
-          {discountedGames.map((game) => (
-            <div key={game._id} className="carousel-item">
-              <img
-                src={getImageSrc(game)}
-                alt={game.title}
-                className="carousel-image"
-              />
-              <div className="carousel-title">{game.title}</div>
-              <div className="carousel-discount">{game.discountPercentage}% OFF</div>
-            </div>
-          ))}
-        </Slider>
-      </div>
+   <div className="product-area">
+  <h2>Games on Promotion</h2>
+  
+  {/* Carousel for games with discount */}
+  <div className="carousel-container">
+    <Slider {...sliderSettings}>
+      {discountedGames.map((game) => (
+        <div key={game._id} className="carousel-item">
+          <img
+            src={getImageSrc(game)}
+            alt={game.title}
+            className="carousel-image"
+          />
+          <div className="carousel-title">{game.title}</div>
+          <div className="carousel-discount">{game.discountPercentage}% OFF</div>
+        </div>
+      ))}
+    </Slider>
+  </div>
 
-      {discountedGames.length === 0 && <p>No discounted games available at the moment.</p>}
+  {discountedGames.length === 0 && <p>No discounted games available at the moment.</p>}
 
-      {notification && (
-        <CustomAlert
-          message={notification}
-          onClose={() => setNotification(null)}
+  {notification && (
+    <CustomAlert
+      message={notification}
+      onClose={() => setNotification(null)}
+    />
+  )}
+
+  <div className="promotion-container">
+    <h3 className="sectionTitle">Featured Games</h3>
+    <Link to="/category" className="viewMore">
+      View more games <FaArrowRight className="icon" />
+    </Link>
+  </div>
+
+  <div className="search-container">
+    <input
+      type="text"
+      placeholder="Search games..."
+      value={searchTerm}
+      onChange={handleSearchChange}
+      className="search-input"
+    />
+  </div>
+
+  <div className="game-grid">
+    {visibleGames.map((game) => (
+      <Link
+        to={`/games/${game._id}`}  // Navigates to the product details page
+        key={game._id}
+        className="gameCard"
+      >
+        <img
+          src={getImageSrc(game)}
+          alt={game.title}
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = 'default-image.jpg';
+          }}
         />
-      )}
-      <div className="promotion-container">
-        <h3 className="sectionTitle">Featured Games</h3>
-        <Link to="/category" className="viewMore">
-          View more games <FaArrowRight className="icon" />
-        </Link>
-      </div>
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder="Search games..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-          className="search-input"
-        />
-      </div>
-      <div className="game-grid">
-      {visibleGames.map((game) => (
-          <Link to={`/games/${game._id}`} key={game._id} className="gameCard">
-            <img
-              src={getImageSrc(game)}
-              alt={game.title}
-              onError={(e) => { e.target.onerror = null; e.target.src = 'default-image.jpg'; }}
-            />
-            <div className="gameFeature">
-              <span className="gameType">{game.genre}</span>
-              <GameRating rating={game.rating} />
-            </div>
-            <div className="gameTitle mt-4 mb-3">{game.title}</div>
-            <div className="gamePrice">
-              {game.discountPercentage > 0 && (
-                <>
-                  <span className="discount">
-                    {game.discountPercentage}% OFF
-                  </span>
-                  <span className="prevPrice">৳{game.price.toFixed(2)}</span>
-                </>
-              )}
-              <span className="currentPrice">
-              ৳{(game.price - (game.price * game.discountPercentage / 100)).toFixed(2)}
-              </span>
-            </div>
-            <button onClick={(e) => {
-              e.stopPropagation(); // Prevent Link from triggering
-              addToCart(game);
-            }}>
-              Add to Cart
-            </button>
-          </Link>
-        ))}
-      </div>
+        <div className="gameFeature">
+          <span className="gameType">{game.genre}</span>
+          <GameRating rating={game.rating} />
+        </div>
+        <div className="gameTitle mt-4 mb-3">{game.title}</div>
+        <div className="gamePrice">
+          {game.discountPercentage > 0 && (
+            <>
+              <span className="discount">{game.discountPercentage}% OFF</span>
+              <span className="prevPrice">৳{game.price.toFixed(2)}</span>
+            </>
+          )}
+          <span className="currentPrice">
+            ৳{(game.price - (game.price * game.discountPercentage / 100)).toFixed(2)}
+          </span>
+        </div>
+        
+        {/* Add to Cart button with event stopPropagation */}
+        <button
+          onClick={(e) => {
+            e.preventDefault(); // Prevents navigation to product details
+            e.stopPropagation(); // Stops event bubbling up to the Link
+            addToCart(game); // Add game to cart
+          }}
+        >
+          Add to Cart
+        </button>
+      </Link>
+    ))}
+  </div>
+</div>
     </div>
   );
 };
