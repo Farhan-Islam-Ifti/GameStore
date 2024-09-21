@@ -20,8 +20,7 @@ router.get('/', test)
 router.post('/register', registerUser)
 router.post( '/login',loginUser)
 
-router.route('/refresh')
-    .get(authController.refresh)
+router.post('/refresh',authController.refresh)
 
 router.route('/logout')
  .post(authController.logout)
