@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './Home.css';
 import SideMenu from '../components/SideMenu';
 import CategoryPage from '../components/CategoryPage';
@@ -8,21 +8,9 @@ import FavouritePage from '../components/FavouritePage';
 import AboutUsPage from '../components/AboutUsPage';
 import ProductArea from '../components/ProductArea';
 import AdminAddGame from '../components/AdminAddGame';
-import { useAuth } from '../context/auth';
-import { toast } from 'react-hot-toast';
+import { PrivateRoute, AdminRoute } from '../context/auths'; // Import the refactored routes
 
 export default function Home() {
-  const [auth] = useAuth(); // Destructure auth
-
-  // Private route component
-  const PrivateRoute = ({ children }) => {
-    if (!auth?.user) {
-      toast.error('You need to login first to access this page.');
-      return <Navigate to="/login" />;
-    }
-    return children;
-  };
-
   return (
     <div className="home-container">
       {/* SideMenu stays constant */}
@@ -63,9 +51,9 @@ export default function Home() {
           <Route
             path="/admin/add-game"
             element={
-              <PrivateRoute>
+              <AdminRoute>
                 <AdminAddGame />
-              </PrivateRoute>
+              </AdminRoute>
             }
           />
         </Routes>

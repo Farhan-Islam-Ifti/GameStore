@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const User = require('../model/user.js'); // Adjust the path as needed
+const User = require('../model/user'); // Adjust the path as needed
 
 const authMiddleware = async (req, res, next) => {
     try {
@@ -39,4 +39,10 @@ const authMiddleware = async (req, res, next) => {
     }
 };
 
-module.exports = authMiddleware;
+const adminMiddleware = (req, res, next) => {
+    if (!req.user.isAdmin) {
+        return res.status(403).json({ message: 'Access denied. Admin only.' });
+    }
+    next();
+};
+module.exports = { authMiddleware, adminMiddleware };

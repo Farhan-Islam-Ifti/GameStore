@@ -5,5 +5,9 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: 'dist',  // Explicitly set output directory
+    sourcemap: false,
+  },
+  server: {
+    sourcemap: false, // Disable source maps during dev server
   },
 })

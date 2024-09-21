@@ -10,46 +10,31 @@ const test = (req, res) => {
 const registerUser = async (req, res) => {
     try {
         const { name, email, password } = req.body;
-
-        // Check if name was entered
         if (!name) {
-            return res.status(400).json({
-                error: 'Name is required'
-            });
+            return res.status(400).json({ error: 'Name is required' });
         }
-
-        // Check password
         if (!password || password.length < 6) {
-            return res.status(400).json({
-                error: 'Password is required and should be at least 6 characters long'
-            });
+            return res.status(400).json({ error: 'Password is required and should be at least 6 characters long' });
         }
-
-        // Check if email already exists
         const exist = await User.findOne({ email });
         if (exist) {
-            return res.status(400).json({
-                error: 'Email is already taken'
-            });
+            return res.status(400).json({ error: 'Email is already taken' });
         }
-
-        // Hash the password
         const hashedPassword = await hashPassword(password);
-
-        // Create new user
+        const isAdmin = email === process.env.ADMIN_EMAIL; // Check if the email is the admin email
         const user = await User.create({
             name,
             email,
             password: hashedPassword,
+            isAdmin
         });
-
-        // Return successful response
         return res.status(201).json({
             message: 'Registration successful',
             user: {
                 id: user._id,
                 name: user.name,
                 email: user.email,
+                isAdmin: user.isAdmin
             }
         });
     } catch (error) {
@@ -61,49 +46,40 @@ const registerUser = async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
     try {
         const { email, password } = req.body;
-        // Check if email and password are provided
         if (!email || !password) {
             return res.status(400).json({ message: 'All fields are required' });
         }
-        // Find the user by email
         const user = await User.findOne({ email }).exec();
         if (!user) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
-        // Compare passwords
         const match = await comparePassword(password, user.password);
         if (!match) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
-        // Generate access token
         const accessToken = jwt.sign(
-            { "UserInfo": { "email": user.email } },
+            { "UserInfo": { "email": user.email, "isAdmin": user.isAdmin } },
             process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: '15m' } // Token expires in 15 minutes
+            { expiresIn: '15s' }
         );
-        // Generate refresh token
         const refreshToken = jwt.sign(
             { "email": user.email },
             process.env.REFRESH_TOKEN_SECRET,
-            { expiresIn: '7d' } // Refresh token expires in 7 days
+            { expiresIn: '7d' }
         );
-        // Store refresh token in HTTP-only cookie
         res.cookie('jwt', refreshToken, {
             httpOnly: true,
-            secure: process.env.NODE_ENV !== 'development', // Only send cookie over HTTPS if not in development
-            sameSite: 'None', // Cross-site cookie
-            maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+            secure: process.env.NODE_ENV == 'production',
+            sameSite: 'None',
+            maxAge: 7 * 24 * 60 * 60 * 1000
         });
-
-        // Fetch the user's cart
         const userWithCart = await User.findById(user._id).select('cart').lean();
-
-        // Return access token, user info, and cart in response
         res.json({
             user: {
                 id: user._id,
                 name: user.name,
-                email: user.email
+                email: user.email,
+                isAdmin: user.isAdmin
             },
             accessToken: accessToken,
             cart: userWithCart.cart || []
@@ -136,7 +112,7 @@ const refresh = asyncHandler(async (req, res) => {
             const accessToken = jwt.sign(
                 { "UserInfo": { "email": foundUser.email } },
                 process.env.ACCESS_TOKEN_SECRET,
-                { expiresIn: '15m' }
+                { expiresIn: '15s' }
             );
 
             res.json({ accessToken });
@@ -156,6 +132,6 @@ module.exports = {
     test,
     registerUser,
     loginUser,
-    refresh,
+     refresh,
     logout,
 };

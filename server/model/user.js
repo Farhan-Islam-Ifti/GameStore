@@ -17,7 +17,14 @@ const userSchema = new Schema({
     type: String,
     unique: true
   },
-  password: String,
+  password: {
+    type: String,
+    required: true
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false
+  },
   cart: [cartItemSchema] // Adding cart as an array of cart items
 });
 

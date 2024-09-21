@@ -25,6 +25,7 @@ const ProductArea = () => {
     const fetchGames = async () => {
       try {
         const response = await axios.get("/api/v1/games");
+      //  console.log("Fetched games:", response.data); // Log the response for debugging
         setGames(response.data);
       } catch (error) {
         console.error("Error fetching games:", error);
@@ -37,13 +38,27 @@ const ProductArea = () => {
     setSearchTerm(e.target.value);
   };
 
+  // Filter games based on the search term
   const filteredGames = games.filter((game) =>
     game.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
-  // 3. Display only a limited number of games if no search term is entered
-  // If there's a search term, show all matching games
+  
+  // Display only a limited number of games if no search term is entered
   const visibleGames = searchTerm ? filteredGames : filteredGames.slice(0, displayLimit);
 
+  // Determine image source (either from URL or binary)
+  const getImageSrc = (game) => {
+    if (game.imageUrl) {
+      //console.log(`Using image URL for ${game.title}: ${game.imageUrl}`);
+      return game.imageUrl;
+    } else if (game._id) {
+      //console.log(`Using binary image for ${game.title}: /api/v1/images/${game._id}`);
+      return `/api/v1/images/${game._id}`;
+    } else {
+      console.log(`Using default image for ${game.title}`);
+      return 'default-image.jpg';
+    }
+  };
 
   const addToCart = (game) => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -52,13 +67,15 @@ const ProductArea = () => {
     if (existingItem) {
       existingItem.quantity += 1;
     } else {
-      cart.push({
+      const newCartItem = {
         id: game._id,
         title: game.title,
         price: game.price,
         imageUrl: getImageSrc(game),
         quantity: 1
-      });
+      };
+    //  console.log("Adding new item to cart:", newCartItem); // Debug log
+      cart.push(newCartItem);
     }
 
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -68,16 +85,6 @@ const ProductArea = () => {
   const showNotification = (message) => {
     setNotification(message);
     setTimeout(() => setNotification(null), 3000);
-  };
-
-  const getImageSrc = (game) => {
-    if (game.imageUrl) {
-      return game.imageUrl;
-    } else if (game._id) {
-      return `/api/v1/images/${game._id}`;
-    } else {
-      return 'default-image.jpg';
-    }
   };
 
   return (

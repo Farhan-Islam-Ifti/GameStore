@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../model/user'); // Adjust the path as needed
-const authMiddleware = require('../middlewares/verifyJWT'); // Your authentication middleware
+const {authMiddleware} = require('../middlewares/verifyJWT'); // Your authentication middleware
 
 router.post('/cart/sync', authMiddleware, async (req, res) => {
   try {

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { FaUpload } from 'react-icons/fa';
 import './AdminAddGames.css';
@@ -22,10 +22,25 @@ const AdminAddGame = () => {
   };
 
   const [game, setGame] = useState(initialGameState);
+  const [games, setGames] = useState([]);
+  const [editingId, setEditingId] = useState(null);
   const [message, setMessage] = useState('');
   const [previewImage, setPreviewImage] = useState(null);
   const [isUpload, setIsUpload] = useState(true);
   const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    fetchGames();
+  }, []);
+
+  const fetchGames = async () => {
+    try {
+      const response = await axios.get('/api/v1/games');
+      setGames(response.data);
+    } catch (error) {
+      console.error('Error fetching games:', error);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
@@ -85,28 +100,57 @@ const AdminAddGame = () => {
         }
       });
 
-      const response = await axios.post('https://game-store-server-jet.vercel.app/api/v1/games', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
-
-      if (response.status === 201) {
-        setMessage('Game added successfully!');
-        setGame(initialGameState);
-        setPreviewImage(null);
+      let response;
+      if (editingId) {
+        response = await axios.put(`/api/v1/games/${editingId}`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
+        setMessage('Game updated successfully!');
       } else {
-        setMessage('Failed to add game. Please try again.');
+        response = await axios.post('/api/v1/games', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
+        setMessage('Game added successfully!');
       }
+
+      setGame(initialGameState);
+      setPreviewImage(null);
+      setEditingId(null);
+      fetchGames();
     } catch (error) {
-      setMessage('Error adding game. Please try again.');
-      console.error('Error adding game:', error);
+      setMessage('Error processing game. Please try again.');
+      console.error('Error processing game:', error);
+    }
+  };
+
+  const handleEdit = (gameToEdit) => {
+    setGame({
+      ...gameToEdit,
+      imageFile: null,
+      platform: Array.isArray(gameToEdit.platform) ? gameToEdit.platform : [],
+      tags: Array.isArray(gameToEdit.tags) ? gameToEdit.tags : []
+    });
+    setPreviewImage(gameToEdit.imageUrl || null);
+    setEditingId(gameToEdit._id);
+    setIsUpload(!gameToEdit.imageUrl);
+  };
+
+  const handleDelete = async (id) => {
+    if (window.confirm('Are you sure you want to delete this game?')) {
+      try {
+        await axios.delete(`/api/v1/games/${id}`);
+        setMessage('Game deleted successfully!');
+        fetchGames();
+      } catch (error) {
+        setMessage('Error deleting game. Please try again.');
+        console.error('Error deleting game:', error);
+      }
     }
   };
 
   return (
     <div className="admin-add-game">
-      <h2>Add New Game</h2>
+      <h2>{editingId ? 'Edit Game' : 'Add New Game'}</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-row">
           <div className="form-group">
@@ -164,7 +208,7 @@ const AdminAddGame = () => {
               type="text"
               id="platform"
               name="platform"
-              value={game.platform.join(', ')}
+              value={Array.isArray(game.platform) ? game.platform.join(', ') : ''}
               onChange={handleChange}
               required
             />
@@ -230,7 +274,7 @@ const AdminAddGame = () => {
             type="text"
             id="tags"
             name="tags"
-            value={game.tags.join(', ')}
+            value={Array.isArray(game.tags) ? game.tags.join(', ') : ''}
             onChange={handleChange}
           />
         </div>
@@ -310,10 +354,32 @@ const AdminAddGame = () => {
             </div>
           )}
         </div>
-
-        <button type="submit" className="submit-button">Add Game</button>
+        <button type="submit">{editingId ? 'Update Game' : 'Add Game'}</button>
       </form>
       {message && <p className="message">{message}</p>}
+      
+      <h3>Game List</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {games.map(game => (
+            <tr key={game._id}>
+              <td>{game.title}</td>
+              <td>${game.price}</td>
+              <td>
+                <button onClick={() => handleEdit(game)}>Edit</button>
+                <button onClick={() => handleDelete(game._id)}>Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

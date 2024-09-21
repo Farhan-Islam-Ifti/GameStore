@@ -10,9 +10,10 @@ export default function Register() {
     name: "",
     email: "",
     password: "",
+    isAdmin: false
   });
 
-  const { name, email, password } = data;
+  const { name, email, password, isAdmin } = data;
 
   const registerUser = async (e) => {
     e.preventDefault();
@@ -22,6 +23,7 @@ export default function Register() {
         name,
         email,
         password,
+        isAdmin
       });
 
       if (response.data.error) {
@@ -33,6 +35,7 @@ export default function Register() {
           name: "",
           email: "",
           password: "",
+          isAdmin: false
         });
         toast.success("Registration Successful. Welcome!");
         navigate("/login");
