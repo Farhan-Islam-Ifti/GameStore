@@ -123,6 +123,7 @@ const CategoryPage = () => {
             </span>
           </div>
           <button onClick={(e) => {
+             e.preventDefault();
             e.stopPropagation(); // Prevent Link from triggering
             addToCart(game);
           }}>
