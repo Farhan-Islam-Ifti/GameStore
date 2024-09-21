@@ -16,7 +16,7 @@ const paymentRoutes = require('./routes/paymentRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const gameRoutes = require('./routes/gameRoutes');
 const cartRoutes = require('./routes/cartRoutes');
-
+const productHistory = require('./routes/productHistory');
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URL)
   .then(() => console.log('Database connected!!!'))
@@ -50,6 +50,7 @@ app.use('/api/v1', paymentRoutes);
 app.use('/api/v1', cartRoutes);
 app.use('/category', categoryRoutes);
 app.use('/api/v1', gameRoutes);
+app.use('/api/v1', productHistory);
 //app.use('/upload', upload);
 // Error handling for undefined routes
 app.use((req, res) => {

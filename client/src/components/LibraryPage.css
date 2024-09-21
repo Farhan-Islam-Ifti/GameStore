@@ -1,0 +1,58 @@
+.library-page {
+    padding: 20px;
+  }
+  
+  .library-page h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2c3e50; /* Adjust the color to fit your theme */
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .library-page h1::after {
+    content: "";
+    display: block;
+    width: 80px; /* Width of the underline */
+    height: 4px; /* Thickness of the underline */
+    background-color: #2c3e50; /* Same color as the text */
+    margin: 10px auto 0; /* Center the underline */
+  }
+  .history-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .purchase-record {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #643d3d;
+  }
+  
+  .history-item {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .item-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 20px;
+    border-radius: 8px;
+  }
+  
+  .item-details {
+    display: flex;
+    flex-direction: column;
+  }
+  .library-page p {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    text-align: center;
+    margin-top: 20px;
+    font-style: italic;
+  }

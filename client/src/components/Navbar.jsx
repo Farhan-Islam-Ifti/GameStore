@@ -23,6 +23,7 @@ export default function Navbar() {
     try {
       // Get the current cart from localStorage
       const currentCart = JSON.parse(localStorage.getItem('cart')) || [];
+      const productHistory = JSON.parse(localStorage.getItem('orders')) || [];
       //console.log(currentCart);
   
       // Send the cart to the server to be saved
@@ -31,7 +32,11 @@ export default function Navbar() {
           Authorization: `Bearer ${auth.token}`
         }
       });
-  
+      await axios.post('/api/v1/history/sync', { orders: productHistory }, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`
+        }
+      });
       // Clear auth state
       setAuth({
         ...auth,
@@ -42,7 +47,7 @@ export default function Navbar() {
       // Clear localStorage
       localStorage.removeItem("auth");
       localStorage.removeItem("cart");
-  
+      localStorage.removeItem("orders");
       toast.success("Logout Successful");
     } catch (error) {
       console.error('Error during logout:', error);
@@ -56,6 +61,7 @@ export default function Navbar() {
       });
       localStorage.removeItem("auth");
       localStorage.removeItem("cart");
+      localStorage.removeItem("orders");
     }
   };
   useEffect(() => {

@@ -75,7 +75,7 @@ const loginUser = asyncHandler(async (req, res) => {
             partitioned: true
            // domain: '.https://game-store-client.vercel.app'
         });
-        const userWithCart = await User.findById(user._id).select('cart').lean();
+        const userWithCart = await User.findById(user._id).select('cart orders').lean();
         res.json({
             user: {
                 id: user._id,
@@ -84,7 +84,8 @@ const loginUser = asyncHandler(async (req, res) => {
                 isAdmin: user.isAdmin
             },
             accessToken: accessToken,
-            cart: userWithCart.cart || []
+            cart: userWithCart.cart || [],
+            orders: userWithCart.orders || [],
         });
     } catch (error) {
         console.error(error);

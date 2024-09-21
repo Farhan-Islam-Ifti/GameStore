@@ -1,4 +1,3 @@
-
 :root {
   --bgColor: #1a1a2e;
   --textColor: #ffffff;
@@ -15,7 +14,64 @@
 
 .product-area h2 {
   font-size: 2rem;
+  font-weight: bold;
+  color: #a41dff8e; /* Adjust the color to fit your theme */
+  text-align: center;
   margin-bottom: 20px;
+  position: relative;
+}
+.product-area h2::after {
+  content: "";
+  display: block;
+  width: 80px; /* Width of the underline */
+  height: 4px; /* Thickness of the underline */
+  background-color: #2c3e50; /* Same color as the text */
+  margin: 10px auto 0; /* Center the underline */
+}
+.product-area h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+/* Carousel Styles */
+.carousel-container {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.carousel-item {
+  position: relative;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 350px; /* Adjust this height as per your need */
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.carousel-title {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-color: rgba(12, 0, 0, 0.774);
+  padding: 5px 10px;
+  color: #ececec;
+  font-size: 2rem;
+  border-radius: 5px;
+}
+
+.carousel-discount {
+  position: absolute;
+  bottom: 80px;
+  right: 0px; /* Adjust to create the angled effect */
+  background-color: #ffffffd5;
+  padding: 10px;
+  color: #c01616;
+  font-size: 1.7rem;
+  font-weight: bold;
+  transform: rotate(-45deg); /* Rotates the discount text */
+  transform-origin: bottom right;
+  border-radius: 5px;
 }
 
 .promotion-container {

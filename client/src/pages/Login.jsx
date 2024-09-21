@@ -36,7 +36,7 @@ export default function Login() {
         toast.success('Login Successful. Welcome!');
 
         // Extract user, token, and cart from the response
-        const { user, accessToken, cart } = response.data;
+        const { user, accessToken, cart ,orders} = response.data;
 
         // Update auth context with user data and token
         setAuth({
@@ -57,6 +57,7 @@ export default function Login() {
 
         // Store cart in localStorage
         localStorage.setItem("cart", JSON.stringify(cart || []));
+        localStorage.setItem("orders", JSON.stringify(orders || []));
       
         // Navigate to the home page or any protected route
         navigate('/');

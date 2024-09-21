@@ -373,8 +373,8 @@ const AdminAddGame = () => {
               <td>{game.title}</td>
               <td>${game.price}</td>
               <td>
-                <button onClick={() => handleEdit(game)}>Edit</button>
-                <button onClick={() => handleDelete(game._id)}>Delete</button>
+                <button className="edit-btn" onClick={() => handleEdit(game)}>Edit</button>
+                <button className="delete-btn" onClick={() => handleDelete(game._id)}>Delete</button>
               </td>
             </tr>
           ))}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import './CategoryPage.css';
 import GameRating from './GameRating';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/auth.jsx'; // Adjust the path if needed
 import { toast } from 'react-hot-toast';
 
@@ -96,33 +97,38 @@ const CategoryPage = () => {
       </div>
 
       <div className="game-grid">
-        {filteredGames.map((game) => (
-          <div key={game._id} className="gameCard">
-            <img
-              src={getImageSrc(game)}
-              alt={game.title}
-              onError={(e) => { e.target.onerror = null; e.target.src = 'default-image.jpg'; }}
-            />
-            <div className="gameFeature">
-              <span className="gameType">{game.genre}</span>
-              <GameRating rating={game.rating} />
-            </div>
-            <div className="gameTitle mt-4 mb-3">{game.title}</div>
-            <div className="gamePrice">
-              {game.discountPercentage > 0 && (
-                <>
-                  <span className="discount">
-                    {game.discountPercentage}% OFF
-                  </span>
-                  <span className="prevPrice">${game.price.toFixed(2)}</span>
-                </>
-              )}
-              <span className="currentPrice">
-                ${(game.price - (game.price * game.discountPercentage / 100)).toFixed(2)}
-              </span>
-            </div>
-            <button onClick={() => addToCart(game)}>Add to Cart</button>
+      {filteredGames.map((game) => (
+          <Link to={`/games/${game._id}`} key={game._id} className="gameCard">
+          <img
+            src={getImageSrc(game)}
+            alt={game.title}
+            onError={(e) => { e.target.onerror = null; e.target.src = 'default-image.jpg'; }}
+          />
+          <div className="gameFeature">
+            <span className="gameType">{game.genre}</span>
+            <GameRating rating={game.rating} />
           </div>
+          <div className="gameTitle mt-4 mb-3">{game.title}</div>
+          <div className="gamePrice">
+            {game.discountPercentage > 0 && (
+              <>
+                <span className="discount">
+                  {game.discountPercentage}% OFF
+                </span>
+                <span className="prevPrice">৳{game.price.toFixed(2)}</span>
+              </>
+            )}
+            <span className="currentPrice">
+            ৳{(game.price - (game.price * game.discountPercentage / 100)).toFixed(2)}
+            </span>
+          </div>
+          <button onClick={(e) => {
+            e.stopPropagation(); // Prevent Link from triggering
+            addToCart(game);
+          }}>
+            Add to Cart
+          </button>
+        </Link>
         ))}
       </div>
     </div>

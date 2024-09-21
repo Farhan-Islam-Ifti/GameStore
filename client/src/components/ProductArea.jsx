@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 import { FaArrowRight } from "react-icons/fa";
 import GameRating from './GameRating'; // Import the GameRating component
 import { toast } from 'react-hot-toast';
+import Slider from "react-slick"; // Import react-slick for carousel
+import "slick-carousel/slick/slick.css"; // Import default styles for slick slider
+import "slick-carousel/slick/slick-theme.css"; 
 
 const CustomAlert = ({ message, onClose }) => (
   <div className="custom-alert">
@@ -45,7 +48,9 @@ const ProductArea = () => {
   
   // Display only a limited number of games if no search term is entered
   const visibleGames = searchTerm ? filteredGames : filteredGames.slice(0, displayLimit);
-
+  // Filter games with discount
+  const discountedGames = games.filter((game) => game.discountPercentage > 0);
+  
   // Determine image source (either from URL or binary)
   const getImageSrc = (game) => {
     if (game.imageUrl) {
@@ -86,10 +91,39 @@ const ProductArea = () => {
     setNotification(message);
     setTimeout(() => setNotification(null), 3000);
   };
-
+  // Slider settings for react-slick
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: true
+  };
   return (
     <div className="product-area">
-      <h2>Featured Games</h2>
+      <h2>Games on Promotion</h2>
+      {/* Carousel for games with discount */}
+      <div className="carousel-container">
+        <Slider {...sliderSettings}>
+          {discountedGames.map((game) => (
+            <div key={game._id} className="carousel-item">
+              <img
+                src={getImageSrc(game)}
+                alt={game.title}
+                className="carousel-image"
+              />
+              <div className="carousel-title">{game.title}</div>
+              <div className="carousel-discount">{game.discountPercentage}% OFF</div>
+            </div>
+          ))}
+        </Slider>
+      </div>
+
+      {discountedGames.length === 0 && <p>No discounted games available at the moment.</p>}
+
       {notification && (
         <CustomAlert
           message={notification}
@@ -97,7 +131,7 @@ const ProductArea = () => {
         />
       )}
       <div className="promotion-container">
-        <h3 className="sectionTitle">Games on Promotion</h3>
+        <h3 className="sectionTitle">Featured Games</h3>
         <Link to="/category" className="viewMore">
           View more games <FaArrowRight className="icon" />
         </Link>
@@ -112,8 +146,8 @@ const ProductArea = () => {
         />
       </div>
       <div className="game-grid">
-        {visibleGames.map((game) => (
-          <div key={game._id} className="gameCard">
+      {visibleGames.map((game) => (
+          <Link to={`/games/${game._id}`} key={game._id} className="gameCard">
             <img
               src={getImageSrc(game)}
               alt={game.title}
@@ -130,15 +164,20 @@ const ProductArea = () => {
                   <span className="discount">
                     {game.discountPercentage}% OFF
                   </span>
-                  <span className="prevPrice">${game.price.toFixed(2)}</span>
+                  <span className="prevPrice">৳{game.price.toFixed(2)}</span>
                 </>
               )}
               <span className="currentPrice">
-                ${(game.price - (game.price * game.discountPercentage / 100)).toFixed(2)}
+              ৳{(game.price - (game.price * game.discountPercentage / 100)).toFixed(2)}
               </span>
             </div>
-            <button onClick={() => addToCart(game)}>Add to Cart</button>
-          </div>
+            <button onClick={(e) => {
+              e.stopPropagation(); // Prevent Link from triggering
+              addToCart(game);
+            }}>
+              Add to Cart
+            </button>
+          </Link>
         ))}
       </div>
     </div>

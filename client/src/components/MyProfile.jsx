@@ -33,47 +33,7 @@ export default function MyProfile() {
       navigate('/login'); // Redirect to login if no token is found
     }
   }, [navigate]);
-  const handleLogout = async () => {
-    try {
-      // Get the current cart from localStorage
-      const currentCart = JSON.parse(localStorage.getItem('cart')) || [];
-      //console.log(currentCart);
   
-      // Send the cart to the server to be saved
-      await axios.post('/api/v1/cart/sync', { cart: currentCart }, {
-        headers: {
-          Authorization: `Bearer ${auth.token}`
-        }
-      });
-  
-      // Clear auth state
-      setAuth({
-        ...auth,
-        user: null,
-        token: null,
-      });
-  
-      // Clear localStorage
-      localStorage.removeItem("auth");
-      localStorage.removeItem("cart");
-  
-      toast.success("Logout Successful");
-    } catch (error) {
-      console.error('Error during logout:', error);
-      toast.error("An error occurred while logging out. Your cart may not have been saved.");
-    } finally {
-      // Ensure the user is logged out even if there was an error syncing the cart
-      setAuth({
-        ...auth,
-        user: null,
-        token: null,
-      });
-      localStorage.removeItem("auth");
-      localStorage.removeItem("cart");
-      navigate('/');
-    }
-  };
-
   return (
     <div className="profile">
       <div className="profile-container">
@@ -100,9 +60,6 @@ export default function MyProfile() {
           />
           <label htmlFor="email" className="profile-label">Email</label>
         </div>
-        <button className="logout-button" onClick={handleLogout}>
-        Log Out
-      </button>
       </div>
     </div>
 

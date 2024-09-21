@@ -33,6 +33,19 @@ const PaymentPage = () => {
       );
 
       if (response.data.success) {
+        // After successful payment, save the cart items to history
+        const existingHistory = JSON.parse(localStorage.getItem('orders')) || [];
+      
+        // Append new purchase to existing history
+        const newPurchase = {
+          purchasedAt: new Date().toISOString(),
+          items: cartItems, // Ensure cartItems is an array of items
+        };
+      
+        const updatedHistory = [...existingHistory, newPurchase];
+        // Save updated history in localStorage
+        localStorage.setItem('orders', JSON.stringify(updatedHistory));
+      
         // Clear the cart after successful payment
         localStorage.removeItem('cart');
         setPaymentStatus('Payment successful!');

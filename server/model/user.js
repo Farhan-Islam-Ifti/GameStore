@@ -9,7 +9,11 @@ const cartItemSchema = new Schema({
   quantity: Number,
   imageUrl: String
 });
-
+// Define the product history schema
+const productHistorySchema = new Schema({
+  items: [cartItemSchema], // items should be an array of itemsSchema
+  purchasedAt: { type: Date, default: Date.now }, 
+});
 // Define the user schema
 const userSchema = new Schema({
   name: String,
@@ -25,7 +29,8 @@ const userSchema = new Schema({
     type: Boolean,
     default: false
   },
-  cart: [cartItemSchema] // Adding cart as an array of cart items
+  cart: [cartItemSchema], // Adding cart as an array of cart items
+  orders: [productHistorySchema]
 });
 
 // Create the User model

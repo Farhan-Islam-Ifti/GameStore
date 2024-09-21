@@ -3,6 +3,7 @@ import { HiExclamationCircle } from "react-icons/hi";
 import { HiFolder } from "react-icons/hi";
 import { HiHeart } from "react-icons/hi";
 import { HiOutlineCollection } from "react-icons/hi";
+import { IoAddCircleOutline } from "react-icons/io5";
 import { Link } from 'react-router-dom';
 import './sideMenu.css';
 
@@ -32,7 +33,7 @@ export default function SideMenu() {
         </li>
         <li>
           <Link to="/admin/add-game">
-            <i><HiExclamationCircle /></i><span className='navName'>Add</span>
+            <i><IoAddCircleOutline /></i><span className='navName'>Add</span>
           </Link>
         </li>
       </ul>

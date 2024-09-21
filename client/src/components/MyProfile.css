@@ -61,25 +61,6 @@
   transition: transform 0.2s ease, font-size 0.5s ease;
 }
 
-.logout-button {
-  width: 100%;
-  max-width: 200px;
-  background: var(--buttonColor);
-  color: var(--textColor);
-  padding: 10px;
-  border: none;
-  border-radius: 20px;
-  font-size: 18px;
-  cursor: pointer;
-  transition: transform 0.3s, color 0.3s;
-  box-sizing: border-box; /* Ensures padding is included in the width */
-}
-
-.logout-button:hover {
-  background: var(--textColor);
-  color: var(--buttonColor);
-}
-
 /* Additional styles for label animation */
 .profile-input:focus + .profile-label,
 .profile-input:not(:placeholder-shown) + .profile-label {

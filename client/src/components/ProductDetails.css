@@ -1,0 +1,126 @@
+.product-details {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 10px;
+    border: 8px solid var(--bgColor);
+    background: var(--bgColor);
+    box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.15),
+      5px 5px 15px rgba(0, 0, 0, 0.35),
+      inset -5px -5px 15px rgba(255, 255, 255, 0.15),
+      inset 5px 5px 15px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    /* Adjust for mobile view */
+    align-items: center;
+  }
+  
+  .details-container {
+    display: flex;
+    flex-direction: row;
+    /* For desktop */
+    box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.15),
+      5px 5px 15px rgba(0, 0, 0, 0.35);
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 1200px;
+    /* Set a maximum width */
+    width: 100%;
+    /* Full width */
+    height: auto;
+    margin: 0 auto;
+  }
+  
+  .image-container {
+    flex: 1;
+    /* Full space for image */
+  }
+  
+  .game-image {
+    width: 100%;
+    height: 100%;
+    /* Make image take full width */
+    /* Maintain aspect ratio */
+  }
+  
+  .text-container p strong {
+    color: red;
+    /* Make the title text red */
+    font-weight: bold;
+    /* Make the title text bold */
+  }
+  
+  .game-title {
+    color: red;
+    /* Make the game title red */
+    font-weight: bold;
+    /* Make the game title bold */
+  }
+  
+  .game-info {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .text-container {
+    text-align: left;
+  }
+  
+  .game-title {
+    font-size: 2rem;
+    /* Adjusted size */
+    color: black;
+    /* Title color */
+  }
+  
+  .price-details {
+    font-size: 1.5rem;
+    margin: 10px 0;
+  }
+  
+  .currentPrice {
+    font-weight: bold;
+  }
+  
+  .back-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .back-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsive styles for mobile */
+  @media (max-width: 500px) {
+    .details-container {
+      flex-direction: column;
+      /* Stack image and text */
+    }
+  
+    .image-container {
+      width: 100%;
+      /* Full width on mobile */
+      order: 1;
+      /* Ensure image is on top */
+    }
+  
+    .game-info {
+      width: 100%;
+      /* Full width on mobile */
+      order: 2;
+      /* Text below the image */
+    }
+  
+    .game-image {
+      height: auto;
+      /* Maintain aspect ratio */
+    }
+  }

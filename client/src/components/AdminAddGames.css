@@ -214,3 +214,50 @@
   font-size: 12px;
   color: rgba(255, 255, 255, 0.7);
 }
+/* Table alignment styles */
+table {
+  width: 100%; /* Ensure the table takes full width */
+  border-collapse: collapse;
+}
+
+thead th {
+  text-align: left; /* Align Title to the left */
+  padding: 10px;
+}
+
+tbody td {
+  padding: 10px;
+}
+
+/* Specific column alignments */
+thead th:nth-child(1), /* Title */
+tbody td:nth-child(1) {
+  text-align: left; /* Align Title column to the left */
+}
+
+thead th:nth-child(2), /* Price */
+tbody td:nth-child(2) {
+  text-align: center; /* Center align Price column */
+}
+
+thead th:nth-child(3), /* Actions */
+tbody td:nth-child(3) {
+  text-align: right; /* Align Actions column to the right */
+}
+
+/* Style the buttons */
+button {
+  margin-left: 5px;
+  padding: 8px 12px;
+  border-radius: 20px;
+}
+
+.edit-btn {
+  background-color: #4CAF50; /* Green background for Edit */
+  color: white;
+}
+
+.delete-btn {
+  background-color: #f44336; /* Red background for Delete */
+  color: white;
+}
