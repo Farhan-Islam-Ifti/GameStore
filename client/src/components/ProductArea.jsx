@@ -195,7 +195,6 @@ const ProductArea = () => {
     ))}
   </div>
 </div>
-    </div>
   );
 };
 
