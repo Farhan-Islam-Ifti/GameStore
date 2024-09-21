@@ -68,11 +68,11 @@ const loginUser = asyncHandler(async (req, res) => {
             { expiresIn: '7d' }
         );
         res.cookie('jwt', refreshToken, {
-            secure: true,
             httpOnly: true,
-           // secure: process.env.NODE_ENV,
-            sameSite: 'None',
-            maxAge: 7 * 24 * 60 * 60 * 1000,
+            secure: true, // Always use secure in production
+            sameSite: 'None', // Required for cross-origin cookies
+            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+            partitioned: true
            // domain: '.https://game-store-client.vercel.app'
         });
         const userWithCart = await User.findById(user._id).select('cart').lean();
