@@ -73,7 +73,7 @@ const loginUser = asyncHandler(async (req, res) => {
             secure: process.env.NODE_ENV == 'production',
             sameSite: 'None',
             maxAge: 7 * 24 * 60 * 60 * 1000,
-            domain: '.https://game-store-client.vercel.app'
+           // domain: '.https://game-store-client.vercel.app'
         });
         const userWithCart = await User.findById(user._id).select('cart').lean();
         res.json({
