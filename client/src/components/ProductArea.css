@@ -1,4 +1,4 @@
-@import url(https://db.onlinewebfonts.com/c/b2932945dbc71a0a2a4c03dd305cfe3a?family=BauhausBold);
+
 :root {
   --bgColor: #1a1a2e;
   --textColor: #ffffff;
@@ -133,7 +133,6 @@
 }
 
 .gameCard .gameTitle {
-    font-family: 'BauhausBold';
     font-size: 1.3rem;
     color: #ffffff;
     text-align: center;
