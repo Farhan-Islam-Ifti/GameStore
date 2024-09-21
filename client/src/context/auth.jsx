@@ -1,6 +1,4 @@
 import { useState, useEffect, useContext, createContext } from "react";
-import {jwtDecode} from 'jwt-decode'; // Make sure jwt-decode is correctly imported
-import axios from 'axios';
 
 // Create the AuthContext
 const AuthContext = createContext();
@@ -13,19 +11,24 @@ const AuthProvider = ({ children }) => {
   });
 
   useEffect(() => {
+    // Fetch the auth data from localStorage on component mount
     const data = localStorage.getItem("auth");
+
+    // Check if the data exists and is valid JSON
     if (data) {
       try {
         const parseData = JSON.parse(data);
+        // Ensure that the parsed data contains both user and token
         if (parseData.user && parseData.token) {
-          setAuth({ user: parseData.user, token: parseData.token });
+          setAuth(parseData); // Update state with parsed data
         }
       } catch (error) {
-        console.error("Failed to parse auth data:", error);
+        console.error("Failed to parse auth data from localStorage:", error);
       }
     }
   }, []);
 
+  // Provide the auth state and setter function to children components
   return (
     <AuthContext.Provider value={[auth, setAuth]}>
       {children}
