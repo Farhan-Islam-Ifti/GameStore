@@ -18,12 +18,9 @@ export default function Login() {
     e.preventDefault();
     const { email, password,} = data;
     setLoading(true); // Start loading
-    try {
-      // Send login request to the backend
-      const response = await axios.post('/login', {
+    const response = await axios.post('/login', {
         email,
         password,
-       withCredentials: true, 
       });
      
       // Check if the backend returned an error
@@ -40,18 +37,21 @@ export default function Login() {
         const { user, accessToken, cart } = response.data;
 
         // Update auth context with user data and token
-         setAuth({
+        setAuth({
           ...auth,
-          user: user,
+          user: {
+              ...user, // Spread user to include isAdmin
+          },
           token: accessToken
-        });
-     
+      });
      
         // Store user, token, and cart in localStorage
-         localStorage.setItem("auth", JSON.stringify({
-          user: user,
+        localStorage.setItem("auth", JSON.stringify({
+          user: {
+              ...user, // Ensure isAdmin is included here
+          },
           token: accessToken
-        }));
+      }));
 
         // Store cart in localStorage
         localStorage.setItem("cart", JSON.stringify(cart || []));
