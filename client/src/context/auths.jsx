@@ -3,16 +3,16 @@ import { Navigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { useAuth } from './auth'; // Use the hook from the context
 import axios from 'axios';
-import {jwtDecode} from 'jwt-decode'; // Ensure jwt-decode is correctly imported
+import { jwtDecode } from 'jwt-decode'; // Ensure jwt-decode is correctly imported
 
 const useAuthToken = () => {
   const [auth, setAuth] = useAuth();
   const [isLoading, setIsLoading] = useState(true);
 
-   useEffect(() => {
+  useEffect(() => {
     const refreshAccessToken = async () => {
       try {
-        const response = await axios.get('/refresh');
+        const response = await axios.post('/refresh', {}, { withCredentials: true });
         if (response.status === 200) {
           const { accessToken } = response.data;
           const parsedData = JSON.parse(localStorage.getItem('auth'));
@@ -27,7 +27,6 @@ const useAuthToken = () => {
         }
       } catch (error) {
         console.error('Failed to refresh token:', error);
-
         // If we get 401 (Unauthorized) or 403 (Forbidden), we force logout
         if (error.response && (error.response.status === 401 || error.response.status === 403)) {
           // Clear auth state and localStorage, forcing user to log out
@@ -61,38 +60,31 @@ const useAuthToken = () => {
 
 const PrivateRoute = ({ children }) => {
   const { auth, isLoading } = useAuthToken();
-
   if (isLoading) {
     // Show a loading screen or spinner while verifying token
     return <div>Loading...</div>;
   }
-
   if (!auth?.user || !auth?.token) {
     toast.error('You need to log in first to access this page.');
     return <Navigate to="/login" />;
   }
-
   return children;
 };
 
 const AdminRoute = ({ children }) => {
   const { auth, isLoading } = useAuthToken();
-
   if (isLoading) {
     // Show a loading screen or spinner while verifying token
     return <div>Loading...</div>;
   }
-
   if (!auth?.user || !auth?.token) {
     toast.error('You need to log in first to access this page.');
     return <Navigate to="/login" />;
   }
-
   if (!auth.user.isAdmin) {
     toast.error('You do not have permission to access this page.');
     return <Navigate to="/" />;
   }
-
   return children;
 };
 
