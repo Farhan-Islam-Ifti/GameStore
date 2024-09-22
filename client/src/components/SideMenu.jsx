@@ -1,7 +1,6 @@
 import React from 'react';
 import { HiExclamationCircle } from "react-icons/hi";
 import { HiFolder } from "react-icons/hi";
-import { HiHeart } from "react-icons/hi";
 import { HiOutlineCollection } from "react-icons/hi";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { Link } from 'react-router-dom';
@@ -19,11 +18,6 @@ export default function SideMenu() {
         <li>
           <Link to="/library">
             <i><HiOutlineCollection /></i><span className='navName'>Library</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/favourite">
-            <i><HiHeart /></i><span className='navName'>Favourite</span>
           </Link>
         </li>
         <li>
