@@ -16,34 +16,34 @@ export default function AboutUsPage() {
           shopping experience for every type of gamer.
         </p>
       </section>
-      <section className="py-12">
-        <h2 className="text-3xl font-semibold mb-4">Meet the Team</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div className="team-member">
-            <h3 className="text-2xl font-bold border-b-2 border-gray-400 pb-2">Farhan Islam Ifti</h3>
-            <p className="text-lg">Farhan is a lifelong gamer with a vision to bring gamers closer to their favorite titles through innovation and exceptional service.</p>
-            <p className="text-gray-400">farhangeneral@gmail.com </p>
-            <p className="text-lg">
-              <strong>Facebook:</strong>
-              <a href="https://www.facebook.com/farhamislam.ifti" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline ml-1">
-                Farhan Islam Ifti
-              </a>
-            </p>
-          </div>
-          <div className="team-member">
-            <h3 className="text-2xl font-bold border-b-2 border-gray-400 pb-2">Asaduzzaman Limon</h3>
-            <p className="text-lg">Limon is the mastermind behind the technology powering Game Haven, ensuring a smooth and reliable experience for our users.</p>
-            <p className="text-gray-400">adilarian420@gmail.com</p>
-            <p className="text-lg">
-              <strong>Facebook:</strong>
-              <a href="https://www.facebook.com/zaman.limon.5/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline ml-1">
-                Asaduzzaman Limon
-              </a>
-            </p>
-          </div>
+     <section className="py-12">
+  <h2 className="text-3xl font-semibold mb-4 text-center">Meet the Team</h2>
+  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div className="team-member lg:text-left text-center">
+      <h3 className="text-2xl font-bold border-b-2 border-gray-400 pb-2">Farhan Islam Ifti</h3>
+      <p className="text-lg">Farhan is a lifelong gamer with a vision to bring gamers closer to their favorite titles through innovation and exceptional service.</p>
+      <p className="text-gray-400">farhangeneral@gmail.com </p>
+      <p className="text-lg">
+        <strong>Facebook:</strong>
+        <a href="https://www.facebook.com/farhamislam.ifti" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline ml-1">
+          Farhan Islam Ifti
+        </a>
+      </p>
+    </div>
+    <div className="team-member lg:text-right text-center">
+      <h3 className="text-2xl font-bold border-b-2 border-gray-400 pb-2">Asaduzzaman Limon</h3>
+      <p className="text-lg">Limon is the mastermind behind the technology powering Game Haven, ensuring a smooth and reliable experience for our users.</p>
+      <p className="text-gray-400">adilarian420@gmail.com</p>
+      <p className="text-lg">
+        <strong>Facebook:</strong>
+        <a href="https://www.facebook.com/zaman.limon.5/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline ml-1">
+          Asaduzzaman Limon
+        </a>
+      </p>
+    </div>
+  </div>
+</section>
 
-        </div>
-      </section>
       <section className="py-12">
         <h2 className="text-3xl font-semibold mb-4">Our Core Values</h2>
         <ul className="list-disc list-inside text-lg leading-8">
